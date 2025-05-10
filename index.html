@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng Dẫn Luộc Trứng Hoàn Hảo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #fffaf0;
+        }
+        
+        .egg-gradient {
+            background: linear-gradient(135deg, #fff3b0, #ffb347, #a85432);
+        }
+        
+        .egg-shape {
+            width: 80px;
+            height: 100px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .egg-shape:hover {
+            transform: scale(1.05);
+        }
+        
+        .egg-shape.selected {
+            box-shadow: 0 0 0 3px #ffb347, 0 0 10px rgba(255, 179, 71, 0.5);
+        }
+        
+        .egg-inner {
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .timer-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(#ffb347 0%, #fffaf0 0%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .timer-inner {
+            width: 85%;
+            height: 85%;
+            border-radius: 50%;
+            background-color: #fffaf0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .tab-active {
+            background-color: #ffb347;
+            color: white;
+        }
+        
+        .custom-range::-webkit-slider-thumb {
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #ffb347;
+            cursor: pointer;
+        }
+        
+        .custom-range::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #ffb347;
+            cursor: pointer;
+        }
+        
+        .custom-range {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: #f3f4f6;
+            outline: none;
+        }
+        
+        @keyframes boil {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .boiling {
+            animation: boil 0.8s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <div class="egg-gradient rounded-3xl p-1">
+            <div class="bg-white rounded-3xl p-6 shadow-lg">
+                <h1 class="text-4xl font-bold text-center text-amber-600 mb-2">Hướng Dẫn Luộc Trứng Hoàn Hảo</h1>
+                <p class="text-center text-gray-600 mb-8">Tùy chỉnh thời gian luộc trứng theo sở thích của bạn</p>
+                
+                <!-- Egg Type Selection -->
+                <div class="mb-10">
+                    <h2 class="text-2xl font-semibold mb-4 text-amber-700">Chọn mức độ chín</h2>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <div class="flex flex-col items-center cursor-pointer egg-option" data-type="very-soft">
+                            <div class="egg-shape bg-white border-2 border-amber-200 mb-2">
+                                <div class="egg-inner bg-yellow-300" style="opacity: 0.9;"></div>
+                            </div>
+                            <span class="text-sm font-medium">Rất lòng đào</span>
+                            <span class="text-xs text-gray-500">3-4 phút</span>
+                        </div>
+                        <div class="flex flex-col items-center cursor-pointer egg-option" data-type="soft">
+                            <div class="egg-shape bg-white border-2 border-amber-200 mb-2">
+                                <div class="egg-inner bg-yellow-400" style="opacity: 0.8;"></div>
+                            </div>
+                            <span class="text-sm font-medium">Lòng đào</span>
+                            <span class="text-xs text-gray-500">5-6 phút</span>
+                        </div>
+                        <div class="flex flex-col items-center cursor-pointer egg-option" data-type="medium-soft">
+                            <div class="egg-shape bg-white border-2 border-amber-200 mb-2">
+                                <div class="egg-inner bg-amber-500" style="opacity: 0.7;"></div>
+                            </div>
+                            <span class="text-sm font-medium">Hơi lòng đào</span>
+                            <span class="text-xs text-gray-500">7 phút</span>
+                        </div>
+                        <div class="flex flex-col items-center cursor-pointer egg-option" data-type="medium">
+                            <div class="egg-shape bg-white border-2 border-amber-200 mb-2">
+                                <div class="egg-inner bg-amber-600" style="opacity: 0.6;"></div>
+                            </div>
+                            <span class="text-sm font-medium">Lòng vừa</span>
+                            <span class="text-xs text-gray-500">8 phút</span>
+                        </div>
+                        <div class="flex flex-col items-center cursor-pointer egg-option" data-type="medium-hard">
+                            <div class="egg-shape bg-white border-2 border-amber-200 mb-2">
+                                <div class="egg-inner bg-amber-700" style="opacity: 0.5;"></div>
+                            </div>
+                            <span class="text-sm font-medium">Gần chín tới</span>
+                            <span class="text-xs text-gray-500">9 phút</span>
+                        </div>
+                        <div class="flex flex-col items-center cursor-pointer egg-option" data-type="hard">
+                            <div class="egg-shape bg-white border-2 border-amber-200 mb-2">
+                                <div class="egg-inner bg-amber-800" style="opacity: 0.4;"></div>
+                            </div>
+                            <span class="text-sm font-medium">Chín hoàn toàn</span>
+                            <span class="text-xs text-gray-500">10-12 phút</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="mb-8">
+                    <div class="flex border-b border-gray-200">
+                        <button class="py-2 px-4 font-medium tab-active" id="tab-basic">Cài đặt cơ bản</button>
+                        <button class="py-2 px-4 font-medium text-gray-600" id="tab-advanced">Cài đặt nâng cao</button>
+                        <button class="py-2 px-4 font-medium text-gray-600" id="tab-tips">Mẹo & Công thức</button>
+                    </div>
+                    
+                    <!-- Basic Settings Tab -->
+                    <div id="content-basic" class="py-4">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Kích thước trứng</label>
+                                <div class="flex gap-2">
+                                    <button class="egg-size-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-size="small">Nhỏ</button>
+                                    <button class="egg-size-btn py-2 px-4 rounded-full bg-amber-500 text-white text-sm font-medium hover:bg-amber-600" data-size="medium">Vừa</button>
+                                    <button class="egg-size-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-size="large">Lớn</button>
+                                    <button class="egg-size-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-size="xlarge">Siêu lớn</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Nhiệt độ ban đầu</label>
+                                <div class="flex gap-2">
+                                    <button class="temp-btn py-2 px-4 rounded-full bg-amber-500 text-white text-sm font-medium hover:bg-amber-600" data-temp="room">Nhiệt độ phòng</button>
+                                    <button class="temp-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-temp="cold">Lạnh (từ tủ lạnh)</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Lượng nước sử dụng</label>
+                                <div class="flex gap-2">
+                                    <button class="water-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-water="low">Ít</button>
+                                    <button class="water-btn py-2 px-4 rounded-full bg-amber-500 text-white text-sm font-medium hover:bg-amber-600" data-water="medium">Vừa</button>
+                                    <button class="water-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-water="high">Nhiều</button>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">Nước nên ngập trứng khoảng 2-3cm</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Số lượng trứng</label>
+                                <div class="flex items-center">
+                                    <button id="decrease-eggs" class="bg-gray-200 px-3 py-1 rounded-l-lg">-</button>
+                                    <input type="number" id="egg-count" class="w-16 text-center border-y border-gray-200 py-1" value="2" min="1" max="12">
+                                    <button id="increase-eggs" class="bg-gray-200 px-3 py-1 rounded-r-lg">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Advanced Settings Tab -->
+                    <div id="content-advanced" class="py-4 hidden">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Độ cao so với mực nước biển (m)</label>
+                                <input type="number" id="altitude" class="w-full p-2 border border-gray-300 rounded-lg" value="0" min="0" max="5000">
+                                <p class="text-xs text-gray-500 mt-1">Độ cao ảnh hưởng đến nhiệt độ sôi của nước</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Điều chỉnh mức độ chín</label>
+                                <input type="range" id="doneness-slider" class="custom-range w-full" min="1" max="12" value="6">
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>Rất lòng đào</span>
+                                    <span>Lòng vừa</span>
+                                    <span>Chín hoàn toàn</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Thời gian làm nguội</label>
+                                <div class="flex gap-2">
+                                    <button class="cooling-btn py-2 px-4 rounded-full bg-amber-500 text-white text-sm font-medium hover:bg-amber-600" data-cooling="ice">Nước đá</button>
+                                    <button class="cooling-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-cooling="cold">Nước lạnh</button>
+                                    <button class="cooling-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-cooling="air">Không khí</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Điều chỉnh thời gian (giây)</label>
+                                <div class="flex items-center">
+                                    <button id="decrease-time" class="bg-gray-200 px-3 py-1 rounded-l-lg">-</button>
+                                    <input type="number" id="time-adjustment" class="w-16 text-center border-y border-gray-200 py-1" value="0" min="-60" max="60" step="10">
+                                    <button id="increase-time" class="bg-gray-200 px-3 py-1 rounded-r-lg">+</button>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">Điều chỉnh thời gian theo sở thích cá nhân</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tips Tab -->
+                    <div id="content-tips" class="py-4 hidden">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-amber-50 p-4 rounded-lg">
+                                <h3 class="font-medium text-amber-800 mb-2">Mẹo bóc vỏ trứng dễ dàng</h3>
+                                <ul class="text-sm text-gray-700 list-disc pl-5 space-y-1">
+                                    <li>Ngâm trứng trong nước lạnh ngay sau khi luộc</li>
+                                    <li>Gõ nhẹ vỏ trứng và lăn trên mặt phẳng</li>
+                                    <li>Bóc vỏ dưới vòi nước chảy nhẹ</li>
+                                    <li>Thêm 1/2 thìa muối vào nước luộc</li>
+                                </ul>
+                            </div>
+                            <div class="bg-amber-50 p-4 rounded-lg">
+                                <h3 class="font-medium text-amber-800 mb-2">Xử lý trứng nứt khi luộc</h3>
+                                <ul class="text-sm text-gray-700 list-disc pl-5 space-y-1">
+                                    <li>Thêm giấm trắng vào nước luộc</li>
+                                    <li>Đặt trứng vào nước đã sôi bằng thìa</li>
+                                    <li>Đảm bảo trứng ở nhiệt độ phòng trước khi luộc</li>
+                                    <li>Dùng kim đâm một lỗ nhỏ ở đầu tù của trứng</li>
+                                </ul>
+                            </div>
+                            <div class="bg-amber-50 p-4 rounded-lg">
+                                <h3 class="font-medium text-amber-800 mb-2">Công thức với trứng luộc</h3>
+                                <ul class="text-sm text-gray-700 list-disc pl-5 space-y-1">
+                                    <li>Salad trứng với sốt mayonnaise</li>
+                                    <li>Trứng ngâm nước tương</li>
+                                    <li>Bánh mì kẹp trứng luộc</li>
+                                    <li>Trứng luộc chấm muối tiêu chanh</li>
+                                    <li>Trứng luộc cuộn rong biển</li>
+                                </ul>
+                            </div>
+                            <div class="bg-amber-50 p-4 rounded-lg">
+                                <h3 class="font-medium text-amber-800 mb-2">Khoa học về trứng</h3>
+                                <p class="text-sm text-gray-700">Lòng trắng trứng bắt đầu đông đặc ở 63°C, trong khi lòng đỏ bắt đầu đặc lại ở 70°C. Khi nhiệt độ tăng, protein trong trứng thay đổi cấu trúc và tạo ra các mức độ chín khác nhau.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Results and Timer -->
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-amber-50 p-6 rounded-2xl">
+                        <h2 class="text-2xl font-semibold mb-4 text-amber-700">Kết quả</h2>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium">Mức độ chín:</span>
+                                <span id="result-doneness" class="text-amber-600 font-medium">Lòng đào</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium">Thời gian luộc:</span>
+                                <span id="result-time" class="text-amber-600 font-medium">6 phút 0 giây</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium">Nhiệt độ nước sôi:</span>
+                                <span id="result-temp" class="text-amber-600 font-medium">100°C</span>
+                            </div>
+                            <div class="mt-6">
+                                <h3 class="font-medium mb-2">Hướng dẫn:</h3>
+                                <ol class="text-sm text-gray-700 list-decimal pl-5 space-y-2">
+                                    <li>Đặt <span id="guide-eggs">2 trứng</span> vào nồi</li>
+                                    <li>Đổ nước vào nồi, ngập trứng khoảng 2-3cm</li>
+                                    <li>Đun nước đến khi sôi</li>
+                                    <li>Giảm lửa nhỏ, đậy nắp và luộc trong <span id="guide-time">6 phút</span></li>
+                                    <li>Sau khi luộc xong, ngâm trứng trong nước lạnh</li>
+                                    <li>Bóc vỏ và thưởng thức!</li>
+                                </ol>
+                            </div>
+                            <button id="save-favorite" class="mt-4 py-2 px-4 bg-white border border-amber-300 rounded-full text-sm font-medium text-amber-600 hover:bg-amber-50 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                </svg>
+                                Lưu cài đặt yêu thích
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col items-center">
+                        <div class="timer-circle mb-4">
+                            <div class="timer-inner">
+                                <span id="timer-display" class="text-4xl font-bold text-amber-600">6:00</span>
+                                <span class="text-sm text-gray-500">phút:giây</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <button id="start-timer" class="py-2 px-6 bg-amber-500 text-white rounded-full font-medium hover:bg-amber-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Bắt đầu
+                            </button>
+                            <button id="reset-timer" class="py-2 px-6 bg-gray-200 text-gray-700 rounded-full font-medium hover:bg-gray-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                Đặt lại
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Comparison Table -->
+                <div class="mt-12">
+                    <h2 class="text-2xl font-semibold mb-4 text-amber-700">Bảng so sánh thời gian luộc</h2>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white rounded-lg overflow-hidden">
+                            <thead class="bg-amber-100">
+                                <tr>
+                                    <th class="py-3 px-4 text-left text-sm font-medium text-amber-800">Mức độ chín</th>
+                                    <th class="py-3 px-4 text-center text-sm font-medium text-amber-800">Trứng nhỏ</th>
+                                    <th class="py-3 px-4 text-center text-sm font-medium text-amber-800">Trứng vừa</th>
+                                    <th class="py-3 px-4 text-center text-sm font-medium text-amber-800">Trứng lớn</th>
+                                    <th class="py-3 px-4 text-center text-sm font-medium text-amber-800">Trứng siêu lớn</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-amber-100">
+                                <tr>
+                                    <td class="py-3 px-4 text-sm font-medium">Rất lòng đào</td>
+                                    <td class="py-3 px-4 text-center text-sm">3 phút</td>
+                                    <td class="py-3 px-4 text-center text-sm">3 phút 30 giây</td>
+                                    <td class="py-3 px-4 text-center text-sm">4 phút</td>
+                                    <td class="py-3 px-4 text-center text-sm">4 phút 30 giây</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-4 text-sm font-medium">Lòng đào</td>
+                                    <td class="py-3 px-4 text-center text-sm">5 phút</td>
+                                    <td class="py-3 px-4 text-center text-sm">5 phút 30 giây</td>
+                                    <td class="py-3 px-4 text-center text-sm">6 phút</td>
+                                    <td class="py-3 px-4 text-center text-sm">6 phút 30 giây</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-4 text-sm font-medium">Hơi lòng đào</td>
+                                    <td class="py-3 px-4 text-center text-sm">6 phút</td>
+                                    <td class="py-3 px-4 text-center text-sm">7 phút</td>
+                                    <td class="py-3 px-4 text-center text-sm">7 phút 30 giây</td>
+                                    <td class="py-3 px-4 text-center text-sm">8 phút</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-4 text-sm font-medium">Lòng vừa</td>
+                                    <td class="py-3 px-4 text-center text-sm">7 phút</td>
+                                    <td class="py-3 px-4 text-center text-sm">8 phút</td>
+                                    <td class="py-3 px-4 text-center text-sm">8 phút 30 giây</td>
+                                    <td class="py-3 px-4 text-center text-sm">9 phút</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-4 text-sm font-medium">Gần chín tới</td>
+                                    <td class="py-3 px-4 text-center text-sm">8 phút</td>
+                                    <td class="py-3 px-4 text-center text-sm">9 phút</td>
+                                    <td class="py-3 px-4 text-center text-sm">9 phút 30 giây</td>
+                                    <td class="py-3 px-4 text-center text-sm">10 phút</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-4 text-sm font-medium">Chín hoàn toàn</td>
+                                    <td class="py-3 px-4 text-center text-sm">9 phút</td>
+                                    <td class="py-3 px-4 text-center text-sm">10 phút</td>
+                                    <td class="py-3 px-4 text-center text-sm">11 phút</td>
+                                    <td class="py-3 px-4 text-center text-sm">12 phút</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Favorites -->
+                <div id="favorites-container" class="mt-8 hidden">
+                    <h2 class="text-2xl font-semibold mb-4 text-amber-700">Cài đặt đã lưu</h2>
+                    <div id="favorites-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Favorites will be added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Default settings
+            let settings = {
+                eggType: 'soft',
+                eggSize: 'medium',
+                temperature: 'room',
+                waterAmount: 'medium',
+                eggCount: 2,
+                altitude: 0,
+                donenessLevel: 6,
+                coolingMethod: 'ice',
+                timeAdjustment: 0
+            };
+            
+            let favorites = JSON.parse(localStorage.getItem('eggFavorites')) || [];
+            let timerInterval;
+            let timerRunning = false;
+            let remainingSeconds = 360; // Default 6 minutes
+            
+            // Initialize UI
+            updateResults();
+            renderFavorites();
+            
+            // Tab switching
+            document.getElementById('tab-basic').addEventListener('click', function() {
+                document.getElementById('content-basic').classList.remove('hidden');
+                document.getElementById('content-advanced').classList.add('hidden');
+                document.getElementById('content-tips').classList.add('hidden');
+                document.getElementById('tab-basic').classList.add('tab-active');
+                document.getElementById('tab-advanced').classList.remove('tab-active');
+                document.getElementById('tab-tips').classList.remove('tab-active');
+            });
+            
+            document.getElementById('tab-advanced').addEventListener('click', function() {
+                document.getElementById('content-basic').classList.add('hidden');
+                document.getElementById('content-advanced').classList.remove('hidden');
+                document.getElementById('content-tips').classList.add('hidden');
+                document.getElementById('tab-basic').classList.remove('tab-active');
+                document.getElementById('tab-advanced').classList.add('tab-active');
+                document.getElementById('tab-tips').classList.remove('tab-active');
+            });
+            
+            document.getElementById('tab-tips').addEventListener('click', function() {
+                document.getElementById('content-basic').classList.add('hidden');
+                document.getElementById('content-advanced').classList.add('hidden');
+                document.getElementById('content-tips').classList.remove('hidden');
+                document.getElementById('tab-basic').classList.remove('tab-active');
+                document.getElementById('tab-advanced').classList.remove('tab-active');
+                document.getElementById('tab-tips').classList.add('tab-active');
+            });
+            
+            // Egg type selection
+            document.querySelectorAll('.egg-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.egg-option .egg-shape').forEach(egg => {
+                        egg.classList.remove('selected');
+                    });
+                    this.querySelector('.egg-shape').classList.add('selected');
+                    settings.eggType = this.dataset.type;
+                    
+                    // Update doneness slider to match
+                    let donenessValue;
+                    switch(settings.eggType) {
+                        case 'very-soft': donenessValue = 3; break;
+                        case 'soft': donenessValue = 5; break;
+                        case 'medium-soft': donenessValue = 7; break;
+                        case 'medium': donenessValue = 8; break;
+                        case 'medium-hard': donenessValue = 9; break;
+                        case 'hard': donenessValue = 11; break;
+                        default: donenessValue = 6;
+                    }
+                    document.getElementById('doneness-slider').value = donenessValue;
+                    settings.donenessLevel = donenessValue;
+                    
+                    updateResults();
+                });
+            });
+            
+            // Select default egg type
+            document.querySelector('.egg-option[data-type="soft"] .egg-shape').classList.add('selected');
+            
+            // Egg size buttons
+            document.querySelectorAll('.egg-size-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.egg-size-btn').forEach(b => {
+                        b.classList.remove('bg-amber-500', 'text-white');
+                        b.classList.add('bg-gray-100');
+                    });
+                    this.classList.remove('bg-gray-100');
+                    this.classList.add('bg-amber-500', 'text-white');
+                    settings.eggSize = this.dataset.size;
+                    updateResults();
+                });
+            });
+            
+            // Temperature buttons
+            document.querySelectorAll('.temp-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.temp-btn').forEach(b => {
+                        b.classList.remove('bg-amber-500', 'text-white');
+                        b.classList.add('bg-gray-100');
+                    });
+                    this.classList.remove('bg-gray-100');
+                    this.classList.add('bg-amber-500', 'text-white');
+                    settings.temperature = this.dataset.temp;
+                    updateResults();
+                });
+            });
+            
+            // Water amount buttons
+            document.querySelectorAll('.water-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.water-btn').forEach(b => {
+                        b.classList.remove('bg-amber-500', 'text-white');
+                        b.classList.add('bg-gray-100');
+                    });
+                    this.classList.remove('bg-gray-100');
+                    this.classList.add('bg-amber-500', 'text-white');
+                    settings.waterAmount = this.dataset.water;
+                    updateResults();
+                });
+            });
+            
+            // Cooling method buttons
+            document.querySelectorAll('.cooling-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.cooling-btn').forEach(b => {
+                        b.classList.remove('bg-amber-500', 'text-white');
+                        b.classList.add('bg-gray-100');
+                    });
+                    this.classList.remove('bg-gray-100');
+                    this.classList.add('bg-amber-500', 'text-white');
+                    settings.coolingMethod = this.dataset.cooling;
+                    updateResults();
+                });
+            });
+            
+            // Egg count
+            document.getElementById('decrease-eggs').addEventListener('click', function() {
+                let count = parseInt(document.getElementById('egg-count').value);
+                if (count > 1) {
+                    document.getElementById('egg-count').value = count - 1;
+                    settings.eggCount = count - 1;
+                    updateResults();
+                }
+            });
+            
+            document.getElementById('increase-eggs').addEventListener('click', function() {
+                let count = parseInt(document.getElementById('egg-count').value);
+                if (count < 12) {
+                    document.getElementById('egg-count').value = count + 1;
+                    settings.eggCount = count + 1;
+                    updateResults();
+                }
+            });
+            
+            document.getElementById('egg-count').addEventListener('change', function() {
+                let count = parseInt(this.value);
+                if (count < 1) count = 1;
+                if (count > 12) count = 12;
+                this.value = count;
+                settings.eggCount = count;
+                updateResults();
+            });
+            
+            // Time adjustment
+            document.getElementById('decrease-time').addEventListener('click', function() {
+                let time = parseInt(document.getElementById('time-adjustment').value);
+                if (time > -60) {
+                    document.getElementById('time-adjustment').value = time - 10;
+                    settings.timeAdjustment = time - 10;
+                    updateResults();
+                }
+            });
+            
+            document.getElementById('increase-time').addEventListener('click', function() {
+                let time = parseInt(document.getElementById('time-adjustment').value);
+                if (time < 60) {
+                    document.getElementById('time-adjustment').value = time + 10;
+                    settings.timeAdjustment = time + 10;
+                    updateResults();
+                }
+            });
+            
+            document.getElementById('time-adjustment').addEventListener('change', function() {
+                let time = parseInt(this.value);
+                if (time < -60) time = -60;
+                if (time > 60) time = 60;
+                this.value = time;
+                settings.timeAdjustment = time;
+                updateResults();
+            });
+            
+            // Altitude
+            document.getElementById('altitude').addEventListener('change', function() {
+                let altitude = parseInt(this.value);
+                if (altitude < 0) altitude = 0;
+                if (altitude > 5000) altitude = 5000;
+                this.value = altitude;
+                settings.altitude = altitude;
+                updateResults();
+            });
+            
+            // Doneness slider
+            document.getElementById('doneness-slider').addEventListener('input', function() {
+                settings.donenessLevel = parseInt(this.value);
+                
+                // Update egg type selection based on slider
+                let eggType;
+                if (settings.donenessLevel <= 3) eggType = 'very-soft';
+                else if (settings.donenessLevel <= 5) eggType = 'soft';
+                else if (settings.donenessLevel <= 7) eggType = 'medium-soft';
+                else if (settings.donenessLevel <= 8) eggType = 'medium';
+                else if (settings.donenessLevel <= 10) eggType = 'medium-hard';
+                else eggType = 'hard';
+                
+                settings.eggType = eggType;
+                
+                document.querySelectorAll('.egg-option .egg-shape').forEach(egg => {
+                    egg.classList.remove('selected');
+                });
+                document.querySelector(`.egg-option[data-type="${eggType}"] .egg-shape`).classList.add('selected');
+                
+                updateResults();
+            });
+            
+            // Timer controls
+            document.getElementById('start-timer').addEventListener('click', function() {
+                if (timerRunning) {
+                    // Pause timer
+                    clearInterval(timerInterval);
+                    timerRunning = false;
+                    this.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Tiếp tục
+                    `;
+                } else {
+                    // Start or resume timer
+                    if (remainingSeconds <= 0) {
+                        // If timer completed, restart
+                        remainingSeconds = calculateCookingTime();
+                        updateTimerDisplay();
+                    }
+                    
+                    timerRunning = true;
+                    this.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Tạm dừng
+                    `;
+                    
+                    // Add boiling animation to eggs
+                    document.querySelectorAll('.egg-shape').forEach(egg => {
+                        egg.classList.add('boiling');
+                    });
+                    
+                    timerInterval = setInterval(function() {
+                        remainingSeconds--;
+                        updateTimerDisplay();
+                        
+                        // Update timer circle
+                        const totalTime = calculateCookingTime();
+                        const progress = (totalTime - remainingSeconds) / totalTime * 100;
+                        document.querySelector('.timer-circle').style.background = 
+                            `conic-gradient(#ffb347 ${progress}%, #fffaf0 ${progress}%)`;
+                        
+                        if (remainingSeconds <= 0) {
+                            clearInterval(timerInterval);
+                            timerRunning = false;
+                            document.getElementById('start-timer').innerHTML = `
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Bắt đầu
+                            `;
+                            
+                            // Remove boiling animation
+                            document.querySelectorAll('.egg-shape').forEach(egg => {
+                                egg.classList.remove('boiling');
+                            });
+                            
+                            // Play notification sound
+                            playNotification();
+                            
+                            // Show notification
+                            alert('Trứng của bạn đã sẵn sàng!');
+                        }
+                    }, 1000);
+                }
+            });
+            
+            document.getElementById('reset-timer').addEventListener('click', function() {
+                clearInterval(timerInterval);
+                timerRunning = false;
+                remainingSeconds = calculateCookingTime();
+                updateTimerDisplay();
+                document.querySelector('.timer-circle').style.background = 'conic-gradient(#ffb347 0%, #fffaf0 0%)';
+                document.getElementById('start-timer').innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Bắt đầu
+                `;
+                
+                // Remove boiling animation
+                document.querySelectorAll('.egg-shape').forEach(egg => {
+                    egg.classList.remove('boiling');
+                });
+            });
+            
+            // Save favorite
+            document.getElementById('save-favorite').addEventListener('click', function() {
+                const name = prompt('Đặt tên cho cài đặt này:');
+                if (name) {
+                    const favorite = {
+                        name: name,
+                        settings: {...settings},
+                        time: calculateCookingTime()
+                    };
+                    
+                    favorites.push(favorite);
+                    localStorage.setItem('eggFavorites', JSON.stringify(favorites));
+                    renderFavorites();
+                }
+            });
+            
+            // Helper functions
+            function updateResults() {
+                const cookingTime = calculateCookingTime();
+                remainingSeconds = cookingTime;
+                updateTimerDisplay();
+                
+                // Update result display
+                let donenessText;
+                switch(settings.eggType) {
+                    case 'very-soft': donenessText = 'Rất lòng đào'; break;
+                    case 'soft': donenessText = 'Lòng đào'; break;
+                    case 'medium-soft': donenessText = 'Hơi lòng đào'; break;
+                    case 'medium': donenessText = 'Lòng vừa'; break;
+                    case 'medium-hard': donenessText = 'Gần chín tới'; break;
+                    case 'hard': donenessText = 'Chín hoàn toàn'; break;
+                    default: donenessText = 'Lòng đào';
+                }
+                
+                document.getElementById('result-doneness').textContent = donenessText;
+                
+                const minutes = Math.floor(cookingTime / 60);
+                const seconds = cookingTime % 60;
+                document.getElementById('result-time').textContent = `${minutes} phút ${seconds} giây`;
+                
+                // Calculate boiling temperature based on altitude
+                const boilingTemp = 100 - (settings.altitude / 300);
+                document.getElementById('result-temp').textContent = `${boilingTemp.toFixed(1)}°C`;
+                
+                // Update guide
+                document.getElementById('guide-eggs').textContent = `${settings.eggCount} trứng`;
+                document.getElementById('guide-time').textContent = `${minutes} phút ${seconds > 0 ? seconds + ' giây' : ''}`;
+            }
+            
+            function calculateCookingTime() {
+                // Base cooking time in seconds based on egg type
+                let baseTime;
+                switch(settings.eggType) {
+                    case 'very-soft': baseTime = 210; break; // 3.5 minutes
+                    case 'soft': baseTime = 330; break; // 5.5 minutes
+                    case 'medium-soft': baseTime = 420; break; // 7 minutes
+                    case 'medium': baseTime = 480; break; // 8 minutes
+                    case 'medium-hard': baseTime = 540; break; // 9 minutes
+                    case 'hard': baseTime = 660; break; // 11 minutes
+                    default: baseTime = 360; // 6 minutes
+                }
+                
+                // Adjust for egg size
+                let sizeMultiplier;
+                switch(settings.eggSize) {
+                    case 'small': sizeMultiplier = 0.9; break;
+                    case 'large': sizeMultiplier = 1.1; break;
+                    case 'xlarge': sizeMultiplier = 1.2; break;
+                    default: sizeMultiplier = 1.0; // medium
+                }
+                
+                // Adjust for temperature
+                let tempAdjustment = settings.temperature === 'cold' ? 30 : 0; // Add 30 seconds for cold eggs
+                
+                // Adjust for water amount
+                let waterAdjustment;
+                switch(settings.waterAmount) {
+                    case 'low': waterAdjustment = -15; break; // Faster with less water
+                    case 'high': waterAdjustment = 15; break; // Slower with more water
+                    default: waterAdjustment = 0; // medium
+                }
+                
+                // Adjust for altitude
+                let altitudeAdjustment = Math.floor(settings.altitude / 500) * 30; // Add 30 seconds per 500m
+                
+                // Adjust for egg count (minimal effect)
+                let countAdjustment = Math.max(0, Math.floor((settings.eggCount - 2) / 2) * 10);
+                
+                // Apply manual time adjustment
+                let manualAdjustment = settings.timeAdjustment;
+                
+                // Calculate final time
+                let finalTime = Math.round((baseTime * sizeMultiplier) + tempAdjustment + waterAdjustment + altitudeAdjustment + countAdjustment + manualAdjustment);
+                
+                // Ensure minimum time
+                return Math.max(60, finalTime); // Minimum 1 minute
+            }
+            
+            function updateTimerDisplay() {
+                const minutes = Math.floor(remainingSeconds / 60);
+                const seconds = remainingSeconds % 60;
+                document.getElementById('timer-display').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            function renderFavorites() {
+                const container = document.getElementById('favorites-container');
+                const list = document.getElementById('favorites-list');
+                
+                if (favorites.length > 0) {
+                    container.classList.remove('hidden');
+                    list.innerHTML = '';
+                    
+                    favorites.forEach((favorite, index) => {
+                        const minutes = Math.floor(favorite.time / 60);
+                        const seconds = favorite.time % 60;
+                        
+                        const favoriteEl = document.createElement('div');
+                        favoriteEl.className = 'bg-amber-50 p-4 rounded-lg flex justify-between items-center';
+                        favoriteEl.innerHTML = `
+                            <div>
+                                <h3 class="font-medium text-amber-800">${favorite.name}</h3>
+                                <p class="text-xs text-gray-600">${minutes} phút ${seconds} giây</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="load-favorite p-2 bg-amber-100 rounded-full text-amber-700 hover:bg-amber-200" data-index="${index}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                    </svg>
+                                </button>
+                                <button class="delete-favorite p-2 bg-red-100 rounded-full text-red-700 hover:bg-red-200" data-index="${index}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </div>
+                        `;
+                        list.appendChild(favoriteEl);
+                    });
+                    
+                    // Add event listeners to favorite buttons
+                    document.querySelectorAll('.load-favorite').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const index = parseInt(this.dataset.index);
+                            settings = {...favorites[index].settings};
+                            updateUIFromSettings();
+                            updateResults();
+                        });
+                    });
+                    
+                    document.querySelectorAll('.delete-favorite').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const index = parseInt(this.dataset.index);
+                            if (confirm('Bạn có chắc muốn xóa cài đặt này?')) {
+                                favorites.splice(index, 1);
+                                localStorage.setItem('eggFavorites', JSON.stringify(favorites));
+                                renderFavorites();
+                            }
+                        });
+                    });
+                } else {
+                    container.classList.add('hidden');
+                }
+            }
+            
+            function updateUIFromSettings() {
+                // Update egg type selection
+                document.querySelectorAll('.egg-option .egg-shape').forEach(egg => {
+                    egg.classList.remove('selected');
+                });
+                document.querySelector(`.egg-option[data-type="${settings.eggType}"] .egg-shape`).classList.add('selected');
+                
+                // Update egg size buttons
+                document.querySelectorAll('.egg-size-btn').forEach(btn => {
+                    btn.classList.remove('bg-amber-500', 'text-white');
+                    btn.classList.add('bg-gray-100');
+                });
+                document.querySelector(`.egg-size-btn[data-size="${settings.eggSize}"]`).classList.remove('bg-gray-100');
+                document.querySelector(`.egg-size-btn[data-size="${settings.eggSize}"]`).classList.add('bg-amber-500', 'text-white');
+                
+                // Update temperature buttons
+                document.querySelectorAll('.temp-btn').forEach(btn => {
+                    btn.classList.remove('bg-amber-500', 'text-white');
+                    btn.classList.add('bg-gray-100');
+                });
+                document.querySelector(`.temp-btn[data-temp="${settings.temperature}"]`).classList.remove('bg-gray-100');
+                document.querySelector(`.temp-btn[data-temp="${settings.temperature}"]`).classList.add('bg-amber-500', 'text-white');
+                
+                // Update water amount buttons
+                document.querySelectorAll('.water-btn').forEach(btn => {
+                    btn.classList.remove('bg-amber-500', 'text-white');
+                    btn.classList.add('bg-gray-100');
+                });
+                document.querySelector(`.water-btn[data-water="${settings.waterAmount}"]`).classList.remove('bg-gray-100');
+                document.querySelector(`.water-btn[data-water="${settings.waterAmount}"]`).classList.add('bg-amber-500', 'text-white');
+                
+                // Update cooling method buttons
+                document.querySelectorAll('.cooling-btn').forEach(btn => {
+                    btn.classList.remove('bg-amber-500', 'text-white');
+                    btn.classList.add('bg-gray-100');
+                });
+                document.querySelector(`.cooling-btn[data-cooling="${settings.coolingMethod}"]`).classList.remove('bg-gray-100');
+                document.querySelector(`.cooling-btn[data-cooling="${settings.coolingMethod}"]`).classList.add('bg-amber-500', 'text-white');
+                
+                // Update egg count
+                document.getElementById('egg-count').value = settings.eggCount;
+                
+                // Update altitude
+                document.getElementById('altitude').value = settings.altitude;
+                
+                // Update doneness slider
+                document.getElementById('doneness-slider').value = settings.donenessLevel;
+                
+                // Update time adjustment
+                document.getElementById('time-adjustment').value = settings.timeAdjustment;
+            }
+            
+            function playNotification() {
+                try {
+                    // Create a beep sound using Web Audio API
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 800;
+                    gainNode.gain.value = 0.5;
+                    
+                    oscillator.start();
+                    
+                    setTimeout(() => {
+                        oscillator.stop();
+                    }, 500);
+                } catch (e) {
+                    console.log('Audio notification not supported');
+                }
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93daf14eb625714d',t:'MTc0Njg5NTkwMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
