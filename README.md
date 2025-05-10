@@ -25,7 +25,7 @@ Sử dụng website cực kỳ đơn giản ấy mà!
 
 ## Đóng Góp (Contribution)
 
-Nếu bạn có bất kỳ ý tưởng hay góp ý nào để cải thiện website, đừng ngần ngại mở một [Issue] hoặc tạo một [Pull Request]. Chúng tôi luôn hoan nghênh mọi đóng góp để website ngày càng hoàn thiện hơn!
+Nếu bạn có bất kỳ ý tưởng hay góp ý nào để cải thiện website, đừng ngần ngại mở một [Issue] hoặc tạo một [Pull Request]. Mình luôn hoan nghênh mọi đóng góp để website ngày càng hoàn thiện hơn!
 
 
 ## Giấy Phép (License)
