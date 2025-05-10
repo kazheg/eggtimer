@@ -26,6 +26,7 @@
             justify-content: center;
             position: relative;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         .egg-shape:hover {
@@ -33,7 +34,7 @@
         }
         
         .egg-shape.selected {
-            box-shadow: 0 0 0 3px #ffb347, 0 0 10px rgba(255, 179, 71, 0.5);
+            box-shadow: 0 0 0 3px #ffb347, 0 0 15px rgba(255, 179, 71, 0.7);
         }
         
         .egg-inner {
@@ -52,6 +53,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
         
         .timer-inner {
@@ -77,6 +79,7 @@
             border-radius: 50%;
             background: #ffb347;
             cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .custom-range::-moz-range-thumb {
@@ -85,6 +88,7 @@
             border-radius: 50%;
             background: #ffb347;
             cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .custom-range {
@@ -104,59 +108,133 @@
         .boiling {
             animation: boil 0.8s infinite;
         }
+        
+        .flag-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        
+        .btn-language {
+            transition: all 0.3s ease;
+        }
+        
+        .btn-language:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn-language.active {
+            box-shadow: 0 0 0 2px #ffb347;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #fff3b0, #ffb347);
+            padding: 15px;
+            text-align: center;
+            border-radius: 0 0 12px 12px;
+            font-weight: 500;
+            color: #7b341e;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card {
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn {
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
-    <div class="container mx-auto px-4 py-8 max-w-5xl">
-        <div class="egg-gradient rounded-3xl p-1">
+    <div class="container mx-auto px-4 py-8 max-w-5xl relative">
+        <!-- Language Selector -->
+        <div class="language-selector flex space-x-2">
+            <button class="btn-language p-1 rounded-full bg-white active" data-lang="vi">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cGF0aCBmaWxsPSIjZGEyNTFkIiBkPSJNMCAwaDkwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjZmZmZjAwIiBkPSJNNDUwIDEyMGw5OC4xIDMwMi4yTDI1NiAxNzkuOGg0MDBsLTI5Mi4xIDI0Mi40eiIvPjwvc3ZnPg==" alt="Tiếng Việt" class="flag-icon">
+            </button>
+            <button class="btn-language p-1 rounded-full bg-white" data-lang="en">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjM1IDY1MCIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPg0KPGRlZnM+DQo8ZyBpZD0idW5pb24iPg0KPHVzZSB5PSItLjIxNiIgeGxpbms6aHJlZj0iI3g0Ii8+DQo8dXNlIHhsaW5rOmhyZWY9IiN4NCIvPg0KPHVzZSB5PSIuMjE2IiB4bGluazpocmVmPSIjczYiLz4NCjwvZz4NCjxnIGlkPSJ4NCI+DQo8dXNlIHhsaW5rOmhyZWY9IiNzNiIvPg0KPHVzZSB5PSIuMDU0IiB4bGluazpocmVmPSIjczUiLz4NCjx1c2UgeT0iLjEwOCIgeGxpbms6aHJlZj0iI3M2Ii8+DQo8dXNlIHk9Ii4xNjIiIHhsaW5rOmhyZWY9IiNzNSIvPg0KPC9nPg0KPGcgaWQ9InM1Ij4NCjx1c2UgeD0iLS4yNTIiIHhsaW5rOmhyZWY9IiNzdGFyIi8+DQo8dXNlIHg9Ii0uMTI2IiB4bGluazpocmVmPSIjc3RhciIvPg0KPHVzZSB4bGluazpocmVmPSIjc3RhciIvPg0KPHVzZSB4PSIuMTI2IiB4bGluazpocmVmPSIjc3RhciIvPg0KPHVzZSB4PSIuMjUyIiB4bGluazpocmVmPSIjc3RhciIvPg0KPC9nPg0KPGcgaWQ9InM2Ij4NCjx1c2UgeD0iLS4wNjMiIHhsaW5rOmhyZWY9IiNzNSIvPg0KPHVzZSB4PSIuMzE1IiB4bGluazpocmVmPSIjc3RhciIvPg0KPC9nPg0KPGcgaWQ9InN0YXIiPg0KPHVzZSB4bGluazpocmVmPSIjcHQiIHRyYW5zZm9ybT0ibWF0cml4KC0uODA5MDIgLS41ODc3OSAuNTg3NzkgLS44MDkwMiAwIDApIi8+DQo8dXNlIHhsaW5rOmhyZWY9IiNwdCIgdHJhbnNmb3JtPSJtYXRyaXgoLjMwOTAyIC0uOTUxMDYgLjk1MTA2IC4zMDkwMiAwIDApIi8+DQo8dXNlIHhsaW5rOmhyZWY9IiNwdCIvPg0KPHVzZSB4bGluazpocmVmPSIjcHQiIHRyYW5zZm9ybT0icm90YXRlKDcyKSIvPg0KPHVzZSB4bGluazpocmVmPSIjcHQiIHRyYW5zZm9ybT0icm90YXRlKDE0NCkiLz4NCjwvZz4NCjxwYXRoIGZpbGw9IiNmZmYiIGlkPSJwdCIgZD0iTS0uMTYyNSwwIDAtLjUgLjE2MjUsMHoiIHRyYW5zZm9ybT0ic2NhbGUoLjA2MTYpIi8+DQo8cGF0aCBmaWxsPSIjYmYwYTMwIiBpZD0ic3RyaXBlIiBkPSJtMCwwaDEyMzV2NTBoLTEyMzV6Ii8+DQo8L2RlZnM+DQo8cGF0aCBmaWxsPSIjZmZmIiBkPSJtMCwwaDEyMzV2NjUwaC0xMjM1eiIvPg0KPHVzZSB4bGluazpocmVmPSIjc3RyaXBlIi8+DQo8dXNlIHk9IjEwMCIgeGxpbms6aHJlZj0iI3N0cmlwZSIvPg0KPHVzZSB5PSIyMDAiIHhsaW5rOmhyZWY9IiNzdHJpcGUiLz4NCjx1c2UgeT0iMzAwIiB4bGluazpocmVmPSIjc3RyaXBlIi8+DQo8dXNlIHk9IjQwMCIgeGxpbms6aHJlZj0iI3N0cmlwZSIvPg0KPHVzZSB5PSI1MDAiIHhsaW5rOmhyZWY9IiNzdHJpcGUiLz4NCjx1c2UgeT0iNjAwIiB4bGluazpocmVmPSIjc3RyaXBlIi8+DQo8cGF0aCBmaWxsPSIjMDAyODY4IiBkPSJtMCwwaDQ5NHYzNTBoLTQ5NHoiLz4NCjx1c2UgeGxpbms6aHJlZj0iI3VuaW9uIiB0cmFuc2Zvcm09Im1hdHJpeCg2NTAgMCAwIDY1MCAyNDcgMTc1KSIvPg0KPC9zdmc+DQo=" alt="English" class="flag-icon">
+            </button>
+            <button class="btn-language p-1 rounded-full bg-white" data-lang="fr">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cGF0aCBmaWxsPSIjRUQyOTM5IiBkPSJNMCAwaDkwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAwaDYwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjMDAyMzk1IiBkPSJNMCAwaDMwMHY2MDBIMHoiLz48L3N2Zz4=" alt="Français" class="flag-icon">
+            </button>
+        </div>
+        
+        <div class="card egg-gradient rounded-3xl p-1 mb-4">
             <div class="bg-white rounded-3xl p-6 shadow-lg">
-                <h1 class="text-4xl font-bold text-center text-amber-600 mb-2">Hướng dẫn luộc trứng hoàn hảo</h1>
-                <p class="text-center text-gray-600 mb-8">Tùy chỉnh thời gian luộc trứng theo sở thích của bạn</p>
+                <h1 class="text-4xl font-bold text-center text-amber-600 mb-2" data-lang-key="title">Hướng dẫn luộc trứng hoàn hảo</h1>
+                <p class="text-center text-gray-600 mb-8" data-lang-key="subtitle">Tùy chỉnh thời gian luộc trứng theo sở thích của bạn</p>
                 
                 <!-- Egg Type Selection -->
                 <div class="mb-10">
-                    <h2 class="text-2xl font-semibold mb-4 text-amber-700">Chọn mức độ chín</h2>
+                    <h2 class="text-2xl font-semibold mb-4 text-amber-700" data-lang-key="doneness-title">Chọn mức độ chín</h2>
                     <div class="flex flex-wrap justify-center gap-6">
                         <div class="flex flex-col items-center cursor-pointer egg-option" data-type="very-soft">
                             <div class="egg-shape bg-white border-2 border-amber-200 mb-2">
                                 <div class="egg-inner bg-yellow-300" style="opacity: 0.9;"></div>
                             </div>
-                            <span class="text-sm font-medium">Rất lòng đào</span>
+                            <span class="text-sm font-medium" data-lang-key="very-soft">Rất lòng đào</span>
                             <span class="text-xs text-gray-500">3-4 phút</span>
                         </div>
                         <div class="flex flex-col items-center cursor-pointer egg-option" data-type="soft">
                             <div class="egg-shape bg-white border-2 border-amber-200 mb-2">
                                 <div class="egg-inner bg-yellow-400" style="opacity: 0.8;"></div>
                             </div>
-                            <span class="text-sm font-medium">Lòng đào</span>
+                            <span class="text-sm font-medium" data-lang-key="soft">Lòng đào</span>
                             <span class="text-xs text-gray-500">5-6 phút</span>
                         </div>
                         <div class="flex flex-col items-center cursor-pointer egg-option" data-type="medium-soft">
                             <div class="egg-shape bg-white border-2 border-amber-200 mb-2">
                                 <div class="egg-inner bg-amber-500" style="opacity: 0.7;"></div>
                             </div>
-                            <span class="text-sm font-medium">Hơi lòng đào</span>
+                            <span class="text-sm font-medium" data-lang-key="medium-soft">Hơi lòng đào</span>
                             <span class="text-xs text-gray-500">7 phút</span>
                         </div>
                         <div class="flex flex-col items-center cursor-pointer egg-option" data-type="medium">
                             <div class="egg-shape bg-white border-2 border-amber-200 mb-2">
                                 <div class="egg-inner bg-amber-600" style="opacity: 0.6;"></div>
                             </div>
-                            <span class="text-sm font-medium">Lòng vừa</span>
+                            <span class="text-sm font-medium" data-lang-key="medium">Lòng vừa</span>
                             <span class="text-xs text-gray-500">8 phút</span>
                         </div>
                         <div class="flex flex-col items-center cursor-pointer egg-option" data-type="medium-hard">
                             <div class="egg-shape bg-white border-2 border-amber-200 mb-2">
                                 <div class="egg-inner bg-amber-700" style="opacity: 0.5;"></div>
                             </div>
-                            <span class="text-sm font-medium">Gần chín tới</span>
+                            <span class="text-sm font-medium" data-lang-key="medium-hard">Gần chín tới</span>
                             <span class="text-xs text-gray-500">9 phút</span>
                         </div>
                         <div class="flex flex-col items-center cursor-pointer egg-option" data-type="hard">
                             <div class="egg-shape bg-white border-2 border-amber-200 mb-2">
                                 <div class="egg-inner bg-amber-800" style="opacity: 0.4;"></div>
                             </div>
-                            <span class="text-sm font-medium">Chín hoàn toàn</span>
+                            <span class="text-sm font-medium" data-lang-key="hard">Chín hoàn toàn</span>
                             <span class="text-xs text-gray-500">10-12 phút</span>
                         </div>
                     </div>
@@ -164,121 +242,122 @@
                 
                 <!-- Tabs -->
                 <div class="mb-8">
-                    <div class="flex border-b border-gray-200">
-                        <button class="py-2 px-4 font-medium tab-active" id="tab-basic">Cài đặt cơ bản</button>
-                        <button class="py-2 px-4 font-medium text-gray-600" id="tab-advanced">Cài đặt nâng cao</button>
-                        <button class="py-2 px-4 font-medium text-gray-600" id="tab-tips">Mẹo & Công thức</button>
+                    <div class="flex border-b border-gray-200 rounded-t-lg overflow-hidden">
+                        <button class="py-3 px-6 font-medium tab-active" id="tab-basic" data-lang-key="tab-basic">Cài đặt cơ bản</button>
+                        <button class="py-3 px-6 font-medium text-gray-600" id="tab-advanced" data-lang-key="tab-advanced">Cài đặt nâng cao</button>
+                        <button class="py-3 px-6 font-medium text-gray-600" id="tab-tips" data-lang-key="tab-tips">Mẹo & Công thức</button>
                     </div>
                     
                     <!-- Basic Settings Tab -->
-                    <div id="content-basic" class="py-4">
+                    <div id="content-basic" class="py-6 bg-amber-50 rounded-b-lg p-6">
                         <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Kích thước trứng</label>
+                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                <label class="block text-sm font-medium text-gray-700 mb-2" data-lang-key="egg-size">Kích thước trứng</label>
                                 <div class="flex gap-2">
-                                    <button class="egg-size-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-size="small">Nhỏ</button>
-                                    <button class="egg-size-btn py-2 px-4 rounded-full bg-amber-500 text-white text-sm font-medium hover:bg-amber-600" data-size="medium">Vừa</button>
-                                    <button class="egg-size-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-size="large">Lớn</button>
-                                    <button class="egg-size-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-size="xlarge">Siêu lớn</button>
+                                    <button class="egg-size-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100 btn" data-size="small" data-lang-key="small">Nhỏ</button>
+                                    <button class="egg-size-btn py-2 px-4 rounded-full bg-amber-500 text-white text-sm font-medium hover:bg-amber-600 btn" data-size="medium" data-lang-key="medium-size">Vừa</button>
+                                    <button class="egg-size-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100 btn" data-size="large" data-lang-key="large">Lớn</button>
+                                    <button class="egg-size-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100 btn" data-size="xlarge" data-lang-key="xlarge">Siêu lớn</button>
                                 </div>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Nhiệt độ ban đầu</label>
+                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                <label class="block text-sm font-medium text-gray-700 mb-2" data-lang-key="initial-temp">Nhiệt độ ban đầu</label>
                                 <div class="flex gap-2">
-                                    <button class="temp-btn py-2 px-4 rounded-full bg-amber-500 text-white text-sm font-medium hover:bg-amber-600" data-temp="room">Nhiệt độ phòng</button>
-                                    <button class="temp-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-temp="cold">Lạnh (từ tủ lạnh)</button>
+                                    <button class="temp-btn py-2 px-4 rounded-full bg-amber-500 text-white text-sm font-medium hover:bg-amber-600 btn" data-temp="room" data-lang-key="room-temp">Nhiệt độ phòng</button>
+                                    <button class="temp-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100 btn" data-temp="cold" data-lang-key="cold-temp">Lạnh (từ tủ lạnh)</button>
                                 </div>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Lượng nước sử dụng</label>
+                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                <label class="block text-sm font-medium text-gray-700 mb-2" data-lang-key="water-amount">Lượng nước sử dụng</label>
                                 <div class="flex gap-2">
-                                    <button class="water-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-water="low">Ít</button>
-                                    <button class="water-btn py-2 px-4 rounded-full bg-amber-500 text-white text-sm font-medium hover:bg-amber-600" data-water="medium">Vừa</button>
-                                    <button class="water-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-water="high">Nhiều</button>
+                                    <button class="water-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100 btn" data-water="low" data-lang-key="low-water">Ít</button>
+                                    <button class="water-btn py-2 px-4 rounded-full bg-amber-500 text-white text-sm font-medium hover:bg-amber-600 btn" data-water="medium" data-lang-key="medium-water">Vừa</button>
+                                    <button class="water-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100 btn" data-water="high" data-lang-key="high-water">Nhiều</button>
                                 </div>
-                                <p class="text-xs text-gray-500 mt-1">Nước nên ngập trứng khoảng 2-3cm</p>
+                                <p class="text-xs text-gray-500 mt-2" data-lang-key="water-tip">Nước nên ngập trứng khoảng 2-3cm</p>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Số lượng trứng</label>
+                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                <label class="block text-sm font-medium text-gray-700 mb-2" data-lang-key="egg-count">Số lượng trứng</label>
                                 <div class="flex items-center">
-                                    <button id="decrease-eggs" class="bg-gray-200 px-3 py-1 rounded-l-lg">-</button>
-                                    <input type="number" id="egg-count" class="w-16 text-center border-y border-gray-200 py-1" value="2" min="1" max="12">
-                                    <button id="increase-eggs" class="bg-gray-200 px-3 py-1 rounded-r-lg">+</button>
+                                    <button id="decrease-eggs" class="bg-gray-200 px-4 py-2 rounded-l-lg hover:bg-gray-300 btn">-</button>
+                                    <input type="number" id="egg-count" class="w-16 text-center border-y border-gray-200 py-2 text-lg font-medium" value="2" min="1" max="12">
+                                    <button id="increase-eggs" class="bg-gray-200 px-4 py-2 rounded-r-lg hover:bg-gray-300 btn">+</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Advanced Settings Tab -->
-                    <div id="content-advanced" class="py-4 hidden">
+                    <div id="content-advanced" class="py-6 bg-amber-50 rounded-b-lg p-6 hidden">
                         <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Độ cao so với mực nước biển (m)</label>
-                                <input type="number" id="altitude" class="w-full p-2 border border-gray-300 rounded-lg" value="0" min="0" max="5000">
-                                <p class="text-xs text-gray-500 mt-1">Độ cao ảnh hưởng đến nhiệt độ sôi của nước</p>
+                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                <label class="block text-sm font-medium text-gray-700 mb-2" data-lang-key="altitude">Độ cao so với mực nước biển (m)</label>
+                                <input type="number" id="altitude" class="w-full p-3 border border-gray-300 rounded-lg" value="0" min="0" max="5000">
+                                <p class="text-xs text-gray-500 mt-2" data-lang-key="altitude-tip">Độ cao ảnh hưởng đến nhiệt độ sôi của nước</p>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Điều chỉnh mức độ chín</label>
+                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                <label class="block text-sm font-medium text-gray-700 mb-2" data-lang-key="doneness-adjust">Điều chỉnh mức độ chín</label>
                                 <input type="range" id="doneness-slider" class="custom-range w-full" min="1" max="12" value="6">
-                                <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                    <span>Rất lòng đào</span>
-                                    <span>Lòng vừa</span>
-                                    <span>Chín hoàn toàn</span>
+                                <div class="flex justify-between text-xs text-gray-500 mt-2">
+                                    <span data-lang-key="very-soft-short">Rất lòng đào</span>
+                                    <span data-lang-key="medium-short">Lòng vừa</span>
+                                    <span data-lang-key="hard-short">Chín hoàn toàn</span>
                                 </div>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Thời gian làm nguội</label>
+                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                <label class="block text-sm font-medium text-gray-700 mb-2" data-lang-key="cooling-method">Phương pháp làm nguội</label>
                                 <div class="flex gap-2">
-                                    <button class="cooling-btn py-2 px-4 rounded-full bg-amber-500 text-white text-sm font-medium hover:bg-amber-600" data-cooling="ice">Nước đá</button>
-                                    <button class="cooling-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-cooling="cold">Nước lạnh</button>
-                                    <button class="cooling-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100" data-cooling="air">Không khí</button>
+                                    <button class="cooling-btn py-2 px-4 rounded-full bg-amber-500 text-white text-sm font-medium hover:bg-amber-600 btn" data-cooling="ice" data-lang-key="ice-water">Nước đá</button>
+                                    <button class="cooling-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100 btn" data-cooling="cold" data-lang-key="cold-water">Nước lạnh</button>
+                                    <button class="cooling-btn py-2 px-4 rounded-full bg-gray-100 text-sm font-medium hover:bg-amber-100 btn" data-cooling="air" data-lang-key="air">Không khí</button>
                                 </div>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Điều chỉnh thời gian (giây)</label>
+                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                <label class="block text-sm font-medium text-gray-700 mb-2" data-lang-key="time-adjust">Điều chỉnh thời gian (giây)</label>
                                 <div class="flex items-center">
-                                    <button id="decrease-time" class="bg-gray-200 px-3 py-1 rounded-l-lg">-</button>
-                                    <input type="number" id="time-adjustment" class="w-16 text-center border-y border-gray-200 py-1" value="0" min="-60" max="60" step="10">
-                                    <button id="increase-time" class="bg-gray-200 px-3 py-1 rounded-r-lg">+</button>
+                                    <button id="decrease-time" class="bg-gray-200 px-4 py-2 rounded-l-lg hover:bg-gray-300 btn">-</button>
+                                    <input type="number" id="time-adjustment" class="w-16 text-center border-y border-gray-200 py-2 text-lg font-medium" value="0" min="-60" max="60" step="10">
+                                    <button id="increase-time" class="bg-gray-200 px-4 py-2 rounded-r-lg hover:bg-gray-300 btn">+</button>
                                 </div>
-                                <p class="text-xs text-gray-500 mt-1">Điều chỉnh thời gian theo sở thích cá nhân</p>
+                                <p class="text-xs text-gray-500 mt-2" data-lang-key="time-adjust-tip">Điều chỉnh thời gian theo sở thích cá nhân</p>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Tips Tab -->
-                    <div id="content-tips" class="py-4 hidden">
+                    <div id="content-tips" class="py-6 bg-amber-50 rounded-b-lg p-6 hidden">
                         <div class="grid md:grid-cols-2 gap-6">
-                            <div class="bg-amber-50 p-4 rounded-lg">
-                                <h3 class="font-medium text-amber-800 mb-2">Mẹo bóc vỏ trứng dễ dàng</h3>
-                                <ul class="text-sm text-gray-700 list-disc pl-5 space-y-1">
-                                    <li>Ngâm trứng trong nước lạnh ngay sau khi luộc</li>
-                                    <li>Gõ nhẹ vỏ trứng và lăn trên mặt phẳng</li>
-                                    <li>Bóc vỏ dưới vòi nước chảy nhẹ</li>
-                                    <li>Thêm 1/2 thìa muối vào nước luộc</li>
+                            <div class="bg-white p-5 rounded-xl shadow-sm">
+                                <h3 class="font-medium text-amber-800 mb-3" data-lang-key="peeling-tips">Mẹo bóc vỏ trứng dễ dàng</h3>
+                                <ul class="text-sm text-gray-700 list-disc pl-5 space-y-2">
+                                    <li data-lang-key="peeling-tip-1">Ngâm trứng trong nước lạnh ngay sau khi luộc</li>
+                                    <li data-lang-key="peeling-tip-2">Gõ nhẹ vỏ trứng và lăn trên mặt phẳng</li>
+                                    <li data-lang-key="peeling-tip-3">Bóc vỏ dưới vòi nước chảy nhẹ</li>
+                                    <li data-lang-key="peeling-tip-4">Thêm 1/2 thìa muối vào nước luộc</li>
                                 </ul>
                             </div>
-                            <div class="bg-amber-50 p-4 rounded-lg">
-                                <h3 class="font-medium text-amber-800 mb-2">Xử lý trứng nứt khi luộc</h3>
-                                <ul class="text-sm text-gray-700 list-disc pl-5 space-y-1">
-                                    <li>Thêm giấm trắng vào nước luộc</li>
-                                    <li>Đặt trứng vào nước đã sôi bằng thìa</li>
-                                    <li>Đảm bảo trứng ở nhiệt độ phòng trước khi luộc</li>
+                            <div class="bg-white p-5 rounded-xl shadow-sm">
+                                <h3 class="font-medium text-amber-800 mb-3" data-lang-key="cracked-eggs">Xử lý trứng nứt khi luộc</h3>
+                                <ul class="text-sm text-gray-700 list-disc pl-5 space-y-2">
+                                    <li data-lang-key="cracked-tip-1">Thêm giấm trắng vào nước luộc</li>
+                                    <li data-lang-key="cracked-tip-2">Đặt trứng vào nước đã sôi bằng thìa</li>
+                                    <li data-lang-key="cracked-tip-3">Đảm bảo trứng ở nhiệt độ phòng trước khi luộc</li>
+                                    <li data-lang-key="cracked-tip-4">Dùng kim đâm một lỗ nhỏ ở đầu tù (bẹt) của trứng</li>
                                 </ul>
                             </div>
-                            <div class="bg-amber-50 p-4 rounded-lg">
-                                <h3 class="font-medium text-amber-800 mb-2">Công thức với trứng luộc</h3>
-                                <ul class="text-sm text-gray-700 list-disc pl-5 space-y-1">
-                                    <li>Salad trứng với sốt mayonnaise</li>
-                                    <li>Trứng ngâm nước tương</li>
-                                    <li>Bánh mì kẹp trứng luộc</li>
-                                    <li>Trứng luộc chấm muối tiêu chanh</li>
-                                    <li>Trứng luộc cuộn rong biển</li>
+                            <div class="bg-white p-5 rounded-xl shadow-sm">
+                                <h3 class="font-medium text-amber-800 mb-3" data-lang-key="egg-recipes">Công thức với trứng luộc</h3>
+                                <ul class="text-sm text-gray-700 list-disc pl-5 space-y-2">
+                                    <li data-lang-key="recipe-1">Salad trứng với sốt mayonnaise</li>
+                                    <li data-lang-key="recipe-2">Trứng ngâm nước tương</li>
+                                    <li data-lang-key="recipe-3">Bánh mì kẹp trứng luộc</li>
+                                    <li data-lang-key="recipe-4">Trứng luộc chấm muối tiêu chanh</li>
+                                    <li data-lang-key="recipe-5">Trứng luộc cuộn rong biển</li>
                                 </ul>
                             </div>
-                            <div class="bg-amber-50 p-4 rounded-lg">
-                                <h3 class="font-medium text-amber-800 mb-2">Khoa học về trứng</h3>
-                                <p class="text-sm text-gray-700">Lòng trắng trứng bắt đầu đông đặc ở 63°C, trong khi lòng đỏ bắt đầu đặc lại ở 70°C. Khi nhiệt độ tăng, protein trong trứng thay đổi cấu trúc và tạo ra các mức độ chín khác nhau.</p>
+                            <div class="bg-white p-5 rounded-xl shadow-sm">
+                                <h3 class="font-medium text-amber-800 mb-3" data-lang-key="egg-science">Khoa học về trứng</h3>
+                                <p class="text-sm text-gray-700" data-lang-key="science-text">Lòng trắng trứng bắt đầu đông đặc ở 63°C, trong khi lòng đỏ bắt đầu đặc lại ở 70°C. Khi nhiệt độ tăng, protein trong trứng thay đổi cấu trúc và tạo ra các mức độ chín khác nhau.</p>
                             </div>
                         </div>
                     </div>
@@ -286,61 +365,61 @@
                 
                 <!-- Results and Timer -->
                 <div class="grid md:grid-cols-2 gap-8 items-center">
-                    <div class="bg-amber-50 p-6 rounded-2xl">
-                        <h2 class="text-2xl font-semibold mb-4 text-amber-700">Kết quả</h2>
+                    <div class="card bg-amber-50 p-6 rounded-2xl">
+                        <h2 class="text-2xl font-semibold mb-4 text-amber-700" data-lang-key="results">Kết quả</h2>
                         <div class="space-y-4">
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium">Mức độ chín:</span>
+                            <div class="flex justify-between items-center bg-white p-3 rounded-lg">
+                                <span class="font-medium" data-lang-key="doneness-level">Mức độ chín:</span>
                                 <span id="result-doneness" class="text-amber-600 font-medium">Lòng đào</span>
                             </div>
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium">Thời gian luộc:</span>
+                            <div class="flex justify-between items-center bg-white p-3 rounded-lg">
+                                <span class="font-medium" data-lang-key="cooking-time">Thời gian luộc:</span>
                                 <span id="result-time" class="text-amber-600 font-medium">6 phút 0 giây</span>
                             </div>
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium">Nhiệt độ nước sôi:</span>
+                            <div class="flex justify-between items-center bg-white p-3 rounded-lg">
+                                <span class="font-medium" data-lang-key="water-temp">Nhiệt độ nước sôi:</span>
                                 <span id="result-temp" class="text-amber-600 font-medium">100°C</span>
                             </div>
-                            <div class="mt-6">
-                                <h3 class="font-medium mb-2">Hướng dẫn:</h3>
-                                <ol class="text-sm text-gray-700 list-decimal pl-5 space-y-2">
-                                    <li>Đặt <span id="guide-eggs">2 trứng</span> vào nồi</li>
-                                    <li>Đổ nước vào nồi, ngập trứng khoảng 2-3cm</li>
-                                    <li>Đun nước đến khi sôi</li>
-                                    <li>Giảm lửa nhỏ, đậy nắp và luộc trong <span id="guide-time">6 phút</span></li>
-                                    <li>Sau khi luộc xong, ngâm trứng trong nước lạnh</li>
-                                    <li>Bóc vỏ và thưởng thức!</li>
+                            <div class="mt-6 bg-white p-4 rounded-lg">
+                                <h3 class="font-medium mb-3" data-lang-key="instructions">Hướng dẫn:</h3>
+                                <ol class="text-sm text-gray-700 list-decimal pl-5 space-y-3">
+                                    <li data-lang-key="step-1">Đặt <span id="guide-eggs">2 trứng</span> vào nồi</li>
+                                    <li data-lang-key="step-2">Đổ nước vào nồi, ngập trứng khoảng 2-3cm</li>
+                                    <li data-lang-key="step-3">Đun nước đến khi sôi</li>
+                                    <li data-lang-key="step-4">Giảm lửa nhỏ, đậy nắp và luộc trong <span id="guide-time">6 phút</span></li>
+                                    <li data-lang-key="step-5">Sau khi luộc xong, ngâm trứng trong nước lạnh</li>
+                                    <li data-lang-key="step-6">Bóc vỏ và thưởng thức!</li>
                                 </ol>
                             </div>
-                            <button id="save-favorite" class="mt-4 py-2 px-4 bg-white border border-amber-300 rounded-full text-sm font-medium text-amber-600 hover:bg-amber-50 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <button id="save-favorite" class="mt-4 py-3 px-6 bg-white border border-amber-300 rounded-full text-sm font-medium text-amber-600 hover:bg-amber-50 flex items-center justify-center w-full btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                 </svg>
-                                Lưu cài đặt yêu thích
+                                <span data-lang-key="save-favorite">Lưu cài đặt yêu thích</span>
                             </button>
                         </div>
                     </div>
                     
                     <div class="flex flex-col items-center">
-                        <div class="timer-circle mb-4">
+                        <div class="timer-circle mb-6">
                             <div class="timer-inner">
                                 <span id="timer-display" class="text-4xl font-bold text-amber-600">6:00</span>
-                                <span class="text-sm text-gray-500">phút:giây</span>
+                                <span class="text-sm text-gray-500" data-lang-key="minutes-seconds">phút:giây</span>
                             </div>
                         </div>
-                        <div class="flex gap-3">
-                            <button id="start-timer" class="py-2 px-6 bg-amber-500 text-white rounded-full font-medium hover:bg-amber-600 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="flex gap-4">
+                            <button id="start-timer" class="py-3 px-8 bg-amber-500 text-white rounded-full font-medium hover:bg-amber-600 flex items-center btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
-                                Bắt đầu
+                                <span data-lang-key="start">Bắt đầu</span>
                             </button>
-                            <button id="reset-timer" class="py-2 px-6 bg-gray-200 text-gray-700 rounded-full font-medium hover:bg-gray-300 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <button id="reset-timer" class="py-3 px-8 bg-gray-200 text-gray-700 rounded-full font-medium hover:bg-gray-300 flex items-center btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                 </svg>
-                                Đặt lại
+                                <span data-lang-key="reset">Đặt lại</span>
                             </button>
                         </div>
                     </div>
@@ -348,60 +427,60 @@
                 
                 <!-- Comparison Table -->
                 <div class="mt-12">
-                    <h2 class="text-2xl font-semibold mb-4 text-amber-700">Bảng so sánh thời gian luộc</h2>
-                    <div class="overflow-x-auto">
+                    <h2 class="text-2xl font-semibold mb-4 text-amber-700" data-lang-key="comparison-table">Bảng so sánh thời gian luộc</h2>
+                    <div class="overflow-x-auto bg-white rounded-xl shadow-sm">
                         <table class="min-w-full bg-white rounded-lg overflow-hidden">
                             <thead class="bg-amber-100">
                                 <tr>
-                                    <th class="py-3 px-4 text-left text-sm font-medium text-amber-800">Mức độ chín</th>
-                                    <th class="py-3 px-4 text-center text-sm font-medium text-amber-800">Trứng nhỏ</th>
-                                    <th class="py-3 px-4 text-center text-sm font-medium text-amber-800">Trứng vừa</th>
-                                    <th class="py-3 px-4 text-center text-sm font-medium text-amber-800">Trứng lớn</th>
-                                    <th class="py-3 px-4 text-center text-sm font-medium text-amber-800">Trứng siêu lớn</th>
+                                    <th class="py-3 px-4 text-left text-sm font-medium text-amber-800" data-lang-key="doneness">Mức độ chín</th>
+                                    <th class="py-3 px-4 text-center text-sm font-medium text-amber-800" data-lang-key="small-egg">Trứng nhỏ</th>
+                                    <th class="py-3 px-4 text-center text-sm font-medium text-amber-800" data-lang-key="medium-egg">Trứng vừa</th>
+                                    <th class="py-3 px-4 text-center text-sm font-medium text-amber-800" data-lang-key="large-egg">Trứng lớn</th>
+                                    <th class="py-3 px-4 text-center text-sm font-medium text-amber-800" data-lang-key="xlarge-egg">Trứng siêu lớn</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-amber-100">
                                 <tr>
-                                    <td class="py-3 px-4 text-sm font-medium">Rất lòng đào</td>
-                                    <td class="py-3 px-4 text-center text-sm">3 phút</td>
-                                    <td class="py-3 px-4 text-center text-sm">3 phút 30 giây</td>
-                                    <td class="py-3 px-4 text-center text-sm">4 phút</td>
-                                    <td class="py-3 px-4 text-center text-sm">4 phút 30 giây</td>
+                                    <td class="py-3 px-4 text-sm font-medium" data-lang-key="very-soft-row">Rất lòng đào</td>
+                                    <td class="py-3 px-4 text-center text-sm">3 <span data-lang-key="min">phút</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">3 <span data-lang-key="min">phút</span> 30 <span data-lang-key="sec">giây</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">4 <span data-lang-key="min">phút</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">4 <span data-lang-key="min">phút</span> 30 <span data-lang-key="sec">giây</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="py-3 px-4 text-sm font-medium">Lòng đào</td>
-                                    <td class="py-3 px-4 text-center text-sm">5 phút</td>
-                                    <td class="py-3 px-4 text-center text-sm">5 phút 30 giây</td>
-                                    <td class="py-3 px-4 text-center text-sm">6 phút</td>
-                                    <td class="py-3 px-4 text-center text-sm">6 phút 30 giây</td>
+                                    <td class="py-3 px-4 text-sm font-medium" data-lang-key="soft-row">Lòng đào</td>
+                                    <td class="py-3 px-4 text-center text-sm">5 <span data-lang-key="min">phút</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">5 <span data-lang-key="min">phút</span> 30 <span data-lang-key="sec">giây</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">6 <span data-lang-key="min">phút</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">6 <span data-lang-key="min">phút</span> 30 <span data-lang-key="sec">giây</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="py-3 px-4 text-sm font-medium">Hơi lòng đào</td>
-                                    <td class="py-3 px-4 text-center text-sm">6 phút</td>
-                                    <td class="py-3 px-4 text-center text-sm">7 phút</td>
-                                    <td class="py-3 px-4 text-center text-sm">7 phút 30 giây</td>
-                                    <td class="py-3 px-4 text-center text-sm">8 phút</td>
+                                    <td class="py-3 px-4 text-sm font-medium" data-lang-key="medium-soft-row">Hơi lòng đào</td>
+                                    <td class="py-3 px-4 text-center text-sm">6 <span data-lang-key="min">phút</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">7 <span data-lang-key="min">phút</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">7 <span data-lang-key="min">phút</span> 30 <span data-lang-key="sec">giây</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">8 <span data-lang-key="min">phút</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="py-3 px-4 text-sm font-medium">Lòng vừa</td>
-                                    <td class="py-3 px-4 text-center text-sm">7 phút</td>
-                                    <td class="py-3 px-4 text-center text-sm">8 phút</td>
-                                    <td class="py-3 px-4 text-center text-sm">8 phút 30 giây</td>
-                                    <td class="py-3 px-4 text-center text-sm">9 phút</td>
+                                    <td class="py-3 px-4 text-sm font-medium" data-lang-key="medium-row">Lòng vừa</td>
+                                    <td class="py-3 px-4 text-center text-sm">7 <span data-lang-key="min">phút</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">8 <span data-lang-key="min">phút</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">8 <span data-lang-key="min">phút</span> 30 <span data-lang-key="sec">giây</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">9 <span data-lang-key="min">phút</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="py-3 px-4 text-sm font-medium">Gần chín tới</td>
-                                    <td class="py-3 px-4 text-center text-sm">8 phút</td>
-                                    <td class="py-3 px-4 text-center text-sm">9 phút</td>
-                                    <td class="py-3 px-4 text-center text-sm">9 phút 30 giây</td>
-                                    <td class="py-3 px-4 text-center text-sm">10 phút</td>
+                                    <td class="py-3 px-4 text-sm font-medium" data-lang-key="medium-hard-row">Gần chín tới</td>
+                                    <td class="py-3 px-4 text-center text-sm">8 <span data-lang-key="min">phút</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">9 <span data-lang-key="min">phút</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">9 <span data-lang-key="min">phút</span> 30 <span data-lang-key="sec">giây</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">10 <span data-lang-key="min">phút</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="py-3 px-4 text-sm font-medium">Chín hoàn toàn</td>
-                                    <td class="py-3 px-4 text-center text-sm">9 phút</td>
-                                    <td class="py-3 px-4 text-center text-sm">10 phút</td>
-                                    <td class="py-3 px-4 text-center text-sm">11 phút</td>
-                                    <td class="py-3 px-4 text-center text-sm">12 phút</td>
+                                    <td class="py-3 px-4 text-sm font-medium" data-lang-key="hard-row">Chín hoàn toàn</td>
+                                    <td class="py-3 px-4 text-center text-sm">9 <span data-lang-key="min">phút</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">10 <span data-lang-key="min">phút</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">11 <span data-lang-key="min">phút</span></td>
+                                    <td class="py-3 px-4 text-center text-sm">12 <span data-lang-key="min">phút</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -409,18 +488,306 @@
                 </div>
                 
                 <!-- Favorites -->
-                <div id="favorites-container" class="mt-8 hidden">
-                    <h2 class="text-2xl font-semibold mb-4 text-amber-700">Cài đặt đã lưu</h2>
+                <div id="favorites-container" class="mt-10 hidden">
+                    <h2 class="text-2xl font-semibold mb-4 text-amber-700" data-lang-key="saved-settings">Cài đặt đã lưu</h2>
                     <div id="favorites-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <!-- Favorites will be added here -->
                     </div>
                 </div>
             </div>
         </div>
+        
+        <!-- Footer -->
+        <div class="footer mt-4 rounded-xl">
+            <p>Created by Phong Trần (kazehugo) | Email: kazehugo06@gmail.com</p>
+        </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Language translations
+            const translations = {
+                'vi': {
+                    'title': 'Hướng Dẫn Luộc Trứng Hoàn Hảo',
+                    'subtitle': 'Tùy chỉnh thời gian luộc trứng theo sở thích của bạn',
+                    'doneness-title': 'Chọn mức độ chín',
+                    'very-soft': 'Rất lòng đào',
+                    'soft': 'Lòng đào',
+                    'medium-soft': 'Hơi lòng đào',
+                    'medium': 'Lòng vừa',
+                    'medium-hard': 'Gần chín tới',
+                    'hard': 'Chín hoàn toàn',
+                    'tab-basic': 'Cài đặt cơ bản',
+                    'tab-advanced': 'Cài đặt nâng cao',
+                    'tab-tips': 'Mẹo & Công thức',
+                    'egg-size': 'Kích thước trứng',
+                    'small': 'Nhỏ',
+                    'medium-size': 'Vừa',
+                    'large': 'Lớn',
+                    'xlarge': 'Siêu lớn',
+                    'initial-temp': 'Nhiệt độ ban đầu',
+                    'room-temp': 'Nhiệt độ phòng',
+                    'cold-temp': 'Lạnh (từ tủ lạnh)',
+                    'water-amount': 'Lượng nước sử dụng',
+                    'low-water': 'Ít',
+                    'medium-water': 'Vừa',
+                    'high-water': 'Nhiều',
+                    'water-tip': 'Nước nên ngập trứng khoảng 2-3cm',
+                    'egg-count': 'Số lượng trứng',
+                    'altitude': 'Độ cao so với mực nước biển (m)',
+                    'altitude-tip': 'Độ cao ảnh hưởng đến nhiệt độ sôi của nước',
+                    'doneness-adjust': 'Điều chỉnh mức độ chín',
+                    'very-soft-short': 'Rất lòng đào',
+                    'medium-short': 'Lòng vừa',
+                    'hard-short': 'Chín hoàn toàn',
+                    'cooling-method': 'Phương pháp làm nguội',
+                    'ice-water': 'Nước đá',
+                    'cold-water': 'Nước lạnh',
+                    'air': 'Không khí',
+                    'time-adjust': 'Điều chỉnh thời gian (giây)',
+                    'time-adjust-tip': 'Điều chỉnh thời gian theo sở thích cá nhân',
+                    'peeling-tips': 'Mẹo bóc vỏ trứng dễ dàng',
+                    'peeling-tip-1': 'Ngâm trứng trong nước lạnh ngay sau khi luộc',
+                    'peeling-tip-2': 'Gõ nhẹ vỏ trứng và lăn trên mặt phẳng',
+                    'peeling-tip-3': 'Bóc vỏ dưới vòi nước chảy nhẹ',
+                    'peeling-tip-4': 'Thêm 1/2 thìa muối vào nước luộc',
+                    'cracked-eggs': 'Xử lý trứng nứt khi luộc',
+                    'cracked-tip-1': 'Thêm giấm trắng vào nước luộc',
+                    'cracked-tip-2': 'Đặt trứng vào nước đã sôi bằng thìa',
+                    'cracked-tip-3': 'Đảm bảo trứng ở nhiệt độ phòng trước khi luộc',
+                    'cracked-tip-4': 'Dùng kim đâm một lỗ nhỏ ở đầu tù của trứng',
+                    'egg-recipes': 'Công thức với trứng luộc',
+                    'recipe-1': 'Salad trứng với sốt mayonnaise',
+                    'recipe-2': 'Trứng ngâm nước tương',
+                    'recipe-3': 'Bánh mì kẹp trứng luộc',
+                    'recipe-4': 'Trứng luộc chấm muối tiêu chanh',
+                    'recipe-5': 'Trứng luộc cuộn rong biển',
+                    'egg-science': 'Khoa học về trứng',
+                    'science-text': 'Lòng trắng trứng bắt đầu đông đặc ở 63°C, trong khi lòng đỏ bắt đầu đặc lại ở 70°C. Khi nhiệt độ tăng, protein trong trứng thay đổi cấu trúc và tạo ra các mức độ chín khác nhau.',
+                    'results': 'Kết quả',
+                    'doneness-level': 'Mức độ chín:',
+                    'cooking-time': 'Thời gian luộc:',
+                    'water-temp': 'Nhiệt độ nước sôi:',
+                    'instructions': 'Hướng dẫn:',
+                    'step-1': 'Đặt <span id="guide-eggs">2 trứng</span> vào nồi',
+                    'step-2': 'Đổ nước vào nồi, ngập trứng khoảng 2-3cm',
+                    'step-3': 'Đun nước đến khi sôi',
+                    'step-4': 'Giảm lửa nhỏ, đậy nắp và luộc trong <span id="guide-time">6 phút</span>',
+                    'step-5': 'Sau khi luộc xong, ngâm trứng trong nước lạnh',
+                    'step-6': 'Bóc vỏ và thưởng thức!',
+                    'save-favorite': 'Lưu cài đặt yêu thích',
+                    'minutes-seconds': 'phút:giây',
+                    'start': 'Bắt đầu',
+                    'reset': 'Đặt lại',
+                    'comparison-table': 'Bảng so sánh thời gian luộc',
+                    'doneness': 'Mức độ chín',
+                    'small-egg': 'Trứng nhỏ',
+                    'medium-egg': 'Trứng vừa',
+                    'large-egg': 'Trứng lớn',
+                    'xlarge-egg': 'Trứng siêu lớn',
+                    'very-soft-row': 'Rất lòng đào',
+                    'soft-row': 'Lòng đào',
+                    'medium-soft-row': 'Hơi lòng đào',
+                    'medium-row': 'Lòng vừa',
+                    'medium-hard-row': 'Gần chín tới',
+                    'hard-row': 'Chín hoàn toàn',
+                    'saved-settings': 'Cài đặt đã lưu',
+                    'min': 'phút',
+                    'sec': 'giây',
+                    'continue': 'Tiếp tục',
+                    'pause': 'Tạm dừng',
+                    'eggs-ready': 'Trứng của bạn đã sẵn sàng!',
+                    'name-setting': 'Đặt tên cho cài đặt này:',
+                    'confirm-delete': 'Bạn có chắc muốn xóa cài đặt này?'
+                },
+                'en': {
+                    'title': 'Perfect Egg Boiling Guide',
+                    'subtitle': 'Customize egg boiling time to your preference',
+                    'doneness-title': 'Select Doneness Level',
+                    'very-soft': 'Very Soft',
+                    'soft': 'Soft',
+                    'medium-soft': 'Medium Soft',
+                    'medium': 'Medium',
+                    'medium-hard': 'Medium Hard',
+                    'hard': 'Hard',
+                    'tab-basic': 'Basic Settings',
+                    'tab-advanced': 'Advanced Settings',
+                    'tab-tips': 'Tips & Recipes',
+                    'egg-size': 'Egg Size',
+                    'small': 'Small',
+                    'medium-size': 'Medium',
+                    'large': 'Large',
+                    'xlarge': 'Extra Large',
+                    'initial-temp': 'Initial Temperature',
+                    'room-temp': 'Room Temperature',
+                    'cold-temp': 'Cold (from fridge)',
+                    'water-amount': 'Water Amount',
+                    'low-water': 'Low',
+                    'medium-water': 'Medium',
+                    'high-water': 'High',
+                    'water-tip': 'Water should cover eggs by about 1 inch',
+                    'egg-count': 'Number of Eggs',
+                    'altitude': 'Altitude above sea level (m)',
+                    'altitude-tip': 'Altitude affects water boiling temperature',
+                    'doneness-adjust': 'Adjust Doneness Level',
+                    'very-soft-short': 'Very Soft',
+                    'medium-short': 'Medium',
+                    'hard-short': 'Hard',
+                    'cooling-method': 'Cooling Method',
+                    'ice-water': 'Ice Water',
+                    'cold-water': 'Cold Water',
+                    'air': 'Air',
+                    'time-adjust': 'Time Adjustment (seconds)',
+                    'time-adjust-tip': 'Adjust time according to personal preference',
+                    'peeling-tips': 'Easy Egg Peeling Tips',
+                    'peeling-tip-1': 'Soak eggs in cold water immediately after boiling',
+                    'peeling-tip-2': 'Gently tap the shell and roll on a flat surface',
+                    'peeling-tip-3': 'Peel under running water',
+                    'peeling-tip-4': 'Add 1/2 teaspoon of salt to boiling water',
+                    'cracked-eggs': 'Handling Cracked Eggs',
+                    'cracked-tip-1': 'Add white vinegar to the boiling water',
+                    'cracked-tip-2': 'Place eggs in already boiling water with a spoon',
+                    'cracked-tip-3': 'Ensure eggs are at room temperature before boiling',
+                    'cracked-tip-4': 'Use a pin to make a small hole in the round end',
+                    'egg-recipes': 'Recipes with Boiled Eggs',
+                    'recipe-1': 'Egg salad with mayonnaise',
+                    'recipe-2': 'Soy sauce marinated eggs',
+                    'recipe-3': 'Boiled egg sandwich',
+                    'recipe-4': 'Boiled eggs with salt, pepper and lime',
+                    'recipe-5': 'Seaweed wrapped boiled eggs',
+                    'egg-science': 'Egg Science',
+                    'science-text': 'Egg whites begin to set at 63°C, while yolks begin to set at 70°C. As temperature increases, proteins in the egg change structure and create different levels of doneness.',
+                    'results': 'Results',
+                    'doneness-level': 'Doneness Level:',
+                    'cooking-time': 'Cooking Time:',
+                    'water-temp': 'Water Temperature:',
+                    'instructions': 'Instructions:',
+                    'step-1': 'Place <span id="guide-eggs">2 eggs</span> in a pot',
+                    'step-2': 'Add water to cover eggs by about 1 inch',
+                    'step-3': 'Bring water to a boil',
+                    'step-4': 'Reduce heat, cover and simmer for <span id="guide-time">6 minutes</span>',
+                    'step-5': 'After cooking, place eggs in cold water',
+                    'step-6': 'Peel and enjoy!',
+                    'save-favorite': 'Save Favorite Setting',
+                    'minutes-seconds': 'min:sec',
+                    'start': 'Start',
+                    'reset': 'Reset',
+                    'comparison-table': 'Cooking Time Comparison',
+                    'doneness': 'Doneness',
+                    'small-egg': 'Small Egg',
+                    'medium-egg': 'Medium Egg',
+                    'large-egg': 'Large Egg',
+                    'xlarge-egg': 'Extra Large Egg',
+                    'very-soft-row': 'Very Soft',
+                    'soft-row': 'Soft',
+                    'medium-soft-row': 'Medium Soft',
+                    'medium-row': 'Medium',
+                    'medium-hard-row': 'Medium Hard',
+                    'hard-row': 'Hard',
+                    'saved-settings': 'Saved Settings',
+                    'min': 'min',
+                    'sec': 'sec',
+                    'continue': 'Continue',
+                    'pause': 'Pause',
+                    'eggs-ready': 'Your eggs are ready!',
+                    'name-setting': 'Name this setting:',
+                    'confirm-delete': 'Are you sure you want to delete this setting?'
+                },
+                'fr': {
+                    'title': 'Guide de Cuisson Parfaite des Œufs',
+                    'subtitle': 'Personnalisez le temps de cuisson selon vos préférences',
+                    'doneness-title': 'Sélectionnez le Niveau de Cuisson',
+                    'very-soft': 'Très Coulant',
+                    'soft': 'Coulant',
+                    'medium-soft': 'Mi-Coulant',
+                    'medium': 'À Point',
+                    'medium-hard': 'Presque Dur',
+                    'hard': 'Dur',
+                    'tab-basic': 'Réglages de Base',
+                    'tab-advanced': 'Réglages Avancés',
+                    'tab-tips': 'Astuces & Recettes',
+                    'egg-size': 'Taille de l\'Œuf',
+                    'small': 'Petit',
+                    'medium-size': 'Moyen',
+                    'large': 'Grand',
+                    'xlarge': 'Très Grand',
+                    'initial-temp': 'Température Initiale',
+                    'room-temp': 'Température Ambiante',
+                    'cold-temp': 'Froid (du réfrigérateur)',
+                    'water-amount': 'Quantité d\'Eau',
+                    'low-water': 'Faible',
+                    'medium-water': 'Moyenne',
+                    'high-water': 'Élevée',
+                    'water-tip': 'L\'eau doit couvrir les œufs d\'environ 2-3 cm',
+                    'egg-count': 'Nombre d\'Œufs',
+                    'altitude': 'Altitude au-dessus du niveau de la mer (m)',
+                    'altitude-tip': 'L\'altitude affecte la température d\'ébullition de l\'eau',
+                    'doneness-adjust': 'Ajuster le Niveau de Cuisson',
+                    'very-soft-short': 'Très Coulant',
+                    'medium-short': 'À Point',
+                    'hard-short': 'Dur',
+                    'cooling-method': 'Méthode de Refroidissement',
+                    'ice-water': 'Eau Glacée',
+                    'cold-water': 'Eau Froide',
+                    'air': 'Air',
+                    'time-adjust': 'Ajustement du Temps (secondes)',
+                    'time-adjust-tip': 'Ajustez le temps selon vos préférences personnelles',
+                    'peeling-tips': 'Astuces pour Écaler Facilement',
+                    'peeling-tip-1': 'Plongez les œufs dans l\'eau froide immédiatement après la cuisson',
+                    'peeling-tip-2': 'Tapotez doucement la coquille et roulez sur une surface plane',
+                    'peeling-tip-3': 'Écalez sous l\'eau courante',
+                    'peeling-tip-4': 'Ajoutez 1/2 cuillère à café de sel à l\'eau bouillante',
+                    'cracked-eggs': 'Gestion des Œufs Fissurés',
+                    'cracked-tip-1': 'Ajoutez du vinaigre blanc à l\'eau bouillante',
+                    'cracked-tip-2': 'Placez les œufs dans l\'eau déjà bouillante avec une cuillère',
+                    'cracked-tip-3': 'Assurez-vous que les œufs sont à température ambiante avant la cuisson',
+                    'cracked-tip-4': 'Utilisez une épingle pour faire un petit trou à l\'extrémité arrondie',
+                    'egg-recipes': 'Recettes avec des Œufs Durs',
+                    'recipe-1': 'Salade d\'œufs à la mayonnaise',
+                    'recipe-2': 'Œufs marinés à la sauce soja',
+                    'recipe-3': 'Sandwich aux œufs durs',
+                    'recipe-4': 'Œufs durs avec sel, poivre et citron',
+                    'recipe-5': 'Œufs durs enveloppés d\'algues',
+                    'egg-science': 'Science des Œufs',
+                    'science-text': 'Le blanc d\'œuf commence à se solidifier à 63°C, tandis que le jaune commence à se solidifier à 70°C. Lorsque la température augmente, les protéines de l\'œuf changent de structure et créent différents niveaux de cuisson.',
+                    'results': 'Résultats',
+                    'doneness-level': 'Niveau de Cuisson:',
+                    'cooking-time': 'Temps de Cuisson:',
+                    'water-temp': 'Température de l\'Eau:',
+                    'instructions': 'Instructions:',
+                    'step-1': 'Placez <span id="guide-eggs">2 œufs</span> dans une casserole',
+                    'step-2': 'Ajoutez de l\'eau pour couvrir les œufs d\'environ 2-3 cm',
+                    'step-3': 'Portez l\'eau à ébullition',
+                    'step-4': 'Réduisez le feu, couvrez et laissez mijoter pendant <span id="guide-time">6 minutes</span>',
+                    'step-5': 'Après la cuisson, plongez les œufs dans l\'eau froide',
+                    'step-6': 'Écalez et dégustez!',
+                    'save-favorite': 'Enregistrer ce Réglage',
+                    'minutes-seconds': 'min:sec',
+                    'start': 'Démarrer',
+                    'reset': 'Réinitialiser',
+                    'comparison-table': 'Comparaison des Temps de Cuisson',
+                    'doneness': 'Cuisson',
+                    'small-egg': 'Petit Œuf',
+                    'medium-egg': 'Œuf Moyen',
+                    'large-egg': 'Grand Œuf',
+                    'xlarge-egg': 'Très Grand Œuf',
+                    'very-soft-row': 'Très Coulant',
+                    'soft-row': 'Coulant',
+                    'medium-soft-row': 'Mi-Coulant',
+                    'medium-row': 'À Point',
+                    'medium-hard-row': 'Presque Dur',
+                    'hard-row': 'Dur',
+                    'saved-settings': 'Réglages Enregistrés',
+                    'min': 'min',
+                    'sec': 'sec',
+                    'continue': 'Continuer',
+                    'pause': 'Pause',
+                    'eggs-ready': 'Vos œufs sont prêts!',
+                    'name-setting': 'Nommez ce réglage:',
+                    'confirm-delete': 'Êtes-vous sûr de vouloir supprimer ce réglage?'
+                }
+            };
+            
             // Default settings
             let settings = {
                 eggType: 'soft',
@@ -438,10 +805,42 @@
             let timerInterval;
             let timerRunning = false;
             let remainingSeconds = 360; // Default 6 minutes
+            let currentLanguage = 'vi'; // Default language
             
             // Initialize UI
             updateResults();
             renderFavorites();
+            
+            // Language switching
+            document.querySelectorAll('.btn-language').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const lang = this.dataset.lang;
+                    setLanguage(lang);
+                    
+                    // Update active state
+                    document.querySelectorAll('.btn-language').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+            
+            function setLanguage(lang) {
+                currentLanguage = lang;
+                document.querySelectorAll('[data-lang-key]').forEach(element => {
+                    const key = element.getAttribute('data-lang-key');
+                    if (translations[lang] && translations[lang][key]) {
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            element.placeholder = translations[lang][key];
+                        } else {
+                            element.innerHTML = translations[lang][key];
+                        }
+                    }
+                });
+                
+                // Update dynamic content
+                updateResults();
+            }
             
             // Tab switching
             document.getElementById('tab-basic').addEventListener('click', function() {
@@ -520,461 +919,7 @@
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.temp-btn').forEach(b => {
                         b.classList.remove('bg-amber-500', 'text-white');
-                        b.classList.add('bg-gray-100');
-                    });
-                    this.classList.remove('bg-gray-100');
-                    this.classList.add('bg-amber-500', 'text-white');
-                    settings.temperature = this.dataset.temp;
-                    updateResults();
-                });
-            });
-            
-            // Water amount buttons
-            document.querySelectorAll('.water-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.water-btn').forEach(b => {
-                        b.classList.remove('bg-amber-500', 'text-white');
-                        b.classList.add('bg-gray-100');
-                    });
-                    this.classList.remove('bg-gray-100');
-                    this.classList.add('bg-amber-500', 'text-white');
-                    settings.waterAmount = this.dataset.water;
-                    updateResults();
-                });
-            });
-            
-            // Cooling method buttons
-            document.querySelectorAll('.cooling-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.cooling-btn').forEach(b => {
-                        b.classList.remove('bg-amber-500', 'text-white');
-                        b.classList.add('bg-gray-100');
-                    });
-                    this.classList.remove('bg-gray-100');
-                    this.classList.add('bg-amber-500', 'text-white');
-                    settings.coolingMethod = this.dataset.cooling;
-                    updateResults();
-                });
-            });
-            
-            // Egg count
-            document.getElementById('decrease-eggs').addEventListener('click', function() {
-                let count = parseInt(document.getElementById('egg-count').value);
-                if (count > 1) {
-                    document.getElementById('egg-count').value = count - 1;
-                    settings.eggCount = count - 1;
-                    updateResults();
-                }
-            });
-            
-            document.getElementById('increase-eggs').addEventListener('click', function() {
-                let count = parseInt(document.getElementById('egg-count').value);
-                if (count < 12) {
-                    document.getElementById('egg-count').value = count + 1;
-                    settings.eggCount = count + 1;
-                    updateResults();
-                }
-            });
-            
-            document.getElementById('egg-count').addEventListener('change', function() {
-                let count = parseInt(this.value);
-                if (count < 1) count = 1;
-                if (count > 12) count = 12;
-                this.value = count;
-                settings.eggCount = count;
-                updateResults();
-            });
-            
-            // Time adjustment
-            document.getElementById('decrease-time').addEventListener('click', function() {
-                let time = parseInt(document.getElementById('time-adjustment').value);
-                if (time > -60) {
-                    document.getElementById('time-adjustment').value = time - 10;
-                    settings.timeAdjustment = time - 10;
-                    updateResults();
-                }
-            });
-            
-            document.getElementById('increase-time').addEventListener('click', function() {
-                let time = parseInt(document.getElementById('time-adjustment').value);
-                if (time < 60) {
-                    document.getElementById('time-adjustment').value = time + 10;
-                    settings.timeAdjustment = time + 10;
-                    updateResults();
-                }
-            });
-            
-            document.getElementById('time-adjustment').addEventListener('change', function() {
-                let time = parseInt(this.value);
-                if (time < -60) time = -60;
-                if (time > 60) time = 60;
-                this.value = time;
-                settings.timeAdjustment = time;
-                updateResults();
-            });
-            
-            // Altitude
-            document.getElementById('altitude').addEventListener('change', function() {
-                let altitude = parseInt(this.value);
-                if (altitude < 0) altitude = 0;
-                if (altitude > 5000) altitude = 5000;
-                this.value = altitude;
-                settings.altitude = altitude;
-                updateResults();
-            });
-            
-            // Doneness slider
-            document.getElementById('doneness-slider').addEventListener('input', function() {
-                settings.donenessLevel = parseInt(this.value);
-                
-                // Update egg type selection based on slider
-                let eggType;
-                if (settings.donenessLevel <= 3) eggType = 'very-soft';
-                else if (settings.donenessLevel <= 5) eggType = 'soft';
-                else if (settings.donenessLevel <= 7) eggType = 'medium-soft';
-                else if (settings.donenessLevel <= 8) eggType = 'medium';
-                else if (settings.donenessLevel <= 10) eggType = 'medium-hard';
-                else eggType = 'hard';
-                
-                settings.eggType = eggType;
-                
-                document.querySelectorAll('.egg-option .egg-shape').forEach(egg => {
-                    egg.classList.remove('selected');
-                });
-                document.querySelector(`.egg-option[data-type="${eggType}"] .egg-shape`).classList.add('selected');
-                
-                updateResults();
-            });
-            
-            // Timer controls
-            document.getElementById('start-timer').addEventListener('click', function() {
-                if (timerRunning) {
-                    // Pause timer
-                    clearInterval(timerInterval);
-                    timerRunning = false;
-                    this.innerHTML = `
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Tiếp tục
-                    `;
-                } else {
-                    // Start or resume timer
-                    if (remainingSeconds <= 0) {
-                        // If timer completed, restart
-                        remainingSeconds = calculateCookingTime();
-                        updateTimerDisplay();
-                    }
-                    
-                    timerRunning = true;
-                    this.innerHTML = `
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Tạm dừng
-                    `;
-                    
-                    // Add boiling animation to eggs
-                    document.querySelectorAll('.egg-shape').forEach(egg => {
-                        egg.classList.add('boiling');
-                    });
-                    
-                    timerInterval = setInterval(function() {
-                        remainingSeconds--;
-                        updateTimerDisplay();
-                        
-                        // Update timer circle
-                        const totalTime = calculateCookingTime();
-                        const progress = (totalTime - remainingSeconds) / totalTime * 100;
-                        document.querySelector('.timer-circle').style.background = 
-                            `conic-gradient(#ffb347 ${progress}%, #fffaf0 ${progress}%)`;
-                        
-                        if (remainingSeconds <= 0) {
-                            clearInterval(timerInterval);
-                            timerRunning = false;
-                            document.getElementById('start-timer').innerHTML = `
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                Bắt đầu
-                            `;
-                            
-                            // Remove boiling animation
-                            document.querySelectorAll('.egg-shape').forEach(egg => {
-                                egg.classList.remove('boiling');
-                            });
-                            
-                            // Play notification sound
-                            playNotification();
-                            
-                            // Show notification
-                            alert('Trứng của bạn đã sẵn sàng!');
-                        }
-                    }, 1000);
-                }
-            });
-            
-            document.getElementById('reset-timer').addEventListener('click', function() {
-                clearInterval(timerInterval);
-                timerRunning = false;
-                remainingSeconds = calculateCookingTime();
-                updateTimerDisplay();
-                document.querySelector('.timer-circle').style.background = 'conic-gradient(#ffb347 0%, #fffaf0 0%)';
-                document.getElementById('start-timer').innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    Bắt đầu
-                `;
-                
-                // Remove boiling animation
-                document.querySelectorAll('.egg-shape').forEach(egg => {
-                    egg.classList.remove('boiling');
-                });
-            });
-            
-            // Save favorite
-            document.getElementById('save-favorite').addEventListener('click', function() {
-                const name = prompt('Đặt tên cho cài đặt này:');
-                if (name) {
-                    const favorite = {
-                        name: name,
-                        settings: {...settings},
-                        time: calculateCookingTime()
-                    };
-                    
-                    favorites.push(favorite);
-                    localStorage.setItem('eggFavorites', JSON.stringify(favorites));
-                    renderFavorites();
-                }
-            });
-            
-            // Helper functions
-            function updateResults() {
-                const cookingTime = calculateCookingTime();
-                remainingSeconds = cookingTime;
-                updateTimerDisplay();
-                
-                // Update result display
-                let donenessText;
-                switch(settings.eggType) {
-                    case 'very-soft': donenessText = 'Rất lòng đào'; break;
-                    case 'soft': donenessText = 'Lòng đào'; break;
-                    case 'medium-soft': donenessText = 'Hơi lòng đào'; break;
-                    case 'medium': donenessText = 'Lòng vừa'; break;
-                    case 'medium-hard': donenessText = 'Gần chín tới'; break;
-                    case 'hard': donenessText = 'Chín hoàn toàn'; break;
-                    default: donenessText = 'Lòng đào';
-                }
-                
-                document.getElementById('result-doneness').textContent = donenessText;
-                
-                const minutes = Math.floor(cookingTime / 60);
-                const seconds = cookingTime % 60;
-                document.getElementById('result-time').textContent = `${minutes} phút ${seconds} giây`;
-                
-                // Calculate boiling temperature based on altitude
-                const boilingTemp = 100 - (settings.altitude / 300);
-                document.getElementById('result-temp').textContent = `${boilingTemp.toFixed(1)}°C`;
-                
-                // Update guide
-                document.getElementById('guide-eggs').textContent = `${settings.eggCount} trứng`;
-                document.getElementById('guide-time').textContent = `${minutes} phút ${seconds > 0 ? seconds + ' giây' : ''}`;
-            }
-            
-            function calculateCookingTime() {
-                // Base cooking time in seconds based on egg type
-                let baseTime;
-                switch(settings.eggType) {
-                    case 'very-soft': baseTime = 210; break; // 3.5 minutes
-                    case 'soft': baseTime = 330; break; // 5.5 minutes
-                    case 'medium-soft': baseTime = 420; break; // 7 minutes
-                    case 'medium': baseTime = 480; break; // 8 minutes
-                    case 'medium-hard': baseTime = 540; break; // 9 minutes
-                    case 'hard': baseTime = 660; break; // 11 minutes
-                    default: baseTime = 360; // 6 minutes
-                }
-                
-                // Adjust for egg size
-                let sizeMultiplier;
-                switch(settings.eggSize) {
-                    case 'small': sizeMultiplier = 0.9; break;
-                    case 'large': sizeMultiplier = 1.1; break;
-                    case 'xlarge': sizeMultiplier = 1.2; break;
-                    default: sizeMultiplier = 1.0; // medium
-                }
-                
-                // Adjust for temperature
-                let tempAdjustment = settings.temperature === 'cold' ? 30 : 0; // Add 30 seconds for cold eggs
-                
-                // Adjust for water amount
-                let waterAdjustment;
-                switch(settings.waterAmount) {
-                    case 'low': waterAdjustment = -15; break; // Faster with less water
-                    case 'high': waterAdjustment = 15; break; // Slower with more water
-                    default: waterAdjustment = 0; // medium
-                }
-                
-                // Adjust for altitude
-                let altitudeAdjustment = Math.floor(settings.altitude / 500) * 30; // Add 30 seconds per 500m
-                
-                // Adjust for egg count (minimal effect)
-                let countAdjustment = Math.max(0, Math.floor((settings.eggCount - 2) / 2) * 10);
-                
-                // Apply manual time adjustment
-                let manualAdjustment = settings.timeAdjustment;
-                
-                // Calculate final time
-                let finalTime = Math.round((baseTime * sizeMultiplier) + tempAdjustment + waterAdjustment + altitudeAdjustment + countAdjustment + manualAdjustment);
-                
-                // Ensure minimum time
-                return Math.max(60, finalTime); // Minimum 1 minute
-            }
-            
-            function updateTimerDisplay() {
-                const minutes = Math.floor(remainingSeconds / 60);
-                const seconds = remainingSeconds % 60;
-                document.getElementById('timer-display').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-            }
-            
-            function renderFavorites() {
-                const container = document.getElementById('favorites-container');
-                const list = document.getElementById('favorites-list');
-                
-                if (favorites.length > 0) {
-                    container.classList.remove('hidden');
-                    list.innerHTML = '';
-                    
-                    favorites.forEach((favorite, index) => {
-                        const minutes = Math.floor(favorite.time / 60);
-                        const seconds = favorite.time % 60;
-                        
-                        const favoriteEl = document.createElement('div');
-                        favoriteEl.className = 'bg-amber-50 p-4 rounded-lg flex justify-between items-center';
-                        favoriteEl.innerHTML = `
-                            <div>
-                                <h3 class="font-medium text-amber-800">${favorite.name}</h3>
-                                <p class="text-xs text-gray-600">${minutes} phút ${seconds} giây</p>
-                            </div>
-                            <div class="flex gap-2">
-                                <button class="load-favorite p-2 bg-amber-100 rounded-full text-amber-700 hover:bg-amber-200" data-index="${index}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                    </svg>
-                                </button>
-                                <button class="delete-favorite p-2 bg-red-100 rounded-full text-red-700 hover:bg-red-200" data-index="${index}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </button>
-                            </div>
-                        `;
-                        list.appendChild(favoriteEl);
-                    });
-                    
-                    // Add event listeners to favorite buttons
-                    document.querySelectorAll('.load-favorite').forEach(btn => {
-                        btn.addEventListener('click', function() {
-                            const index = parseInt(this.dataset.index);
-                            settings = {...favorites[index].settings};
-                            updateUIFromSettings();
-                            updateResults();
-                        });
-                    });
-                    
-                    document.querySelectorAll('.delete-favorite').forEach(btn => {
-                        btn.addEventListener('click', function() {
-                            const index = parseInt(this.dataset.index);
-                            if (confirm('Bạn có chắc muốn xóa cài đặt này?')) {
-                                favorites.splice(index, 1);
-                                localStorage.setItem('eggFavorites', JSON.stringify(favorites));
-                                renderFavorites();
-                            }
-                        });
-                    });
-                } else {
-                    container.classList.add('hidden');
-                }
-            }
-            
-            function updateUIFromSettings() {
-                // Update egg type selection
-                document.querySelectorAll('.egg-option .egg-shape').forEach(egg => {
-                    egg.classList.remove('selected');
-                });
-                document.querySelector(`.egg-option[data-type="${settings.eggType}"] .egg-shape`).classList.add('selected');
-                
-                // Update egg size buttons
-                document.querySelectorAll('.egg-size-btn').forEach(btn => {
-                    btn.classList.remove('bg-amber-500', 'text-white');
-                    btn.classList.add('bg-gray-100');
-                });
-                document.querySelector(`.egg-size-btn[data-size="${settings.eggSize}"]`).classList.remove('bg-gray-100');
-                document.querySelector(`.egg-size-btn[data-size="${settings.eggSize}"]`).classList.add('bg-amber-500', 'text-white');
-                
-                // Update temperature buttons
-                document.querySelectorAll('.temp-btn').forEach(btn => {
-                    btn.classList.remove('bg-amber-500', 'text-white');
-                    btn.classList.add('bg-gray-100');
-                });
-                document.querySelector(`.temp-btn[data-temp="${settings.temperature}"]`).classList.remove('bg-gray-100');
-                document.querySelector(`.temp-btn[data-temp="${settings.temperature}"]`).classList.add('bg-amber-500', 'text-white');
-                
-                // Update water amount buttons
-                document.querySelectorAll('.water-btn').forEach(btn => {
-                    btn.classList.remove('bg-amber-500', 'text-white');
-                    btn.classList.add('bg-gray-100');
-                });
-                document.querySelector(`.water-btn[data-water="${settings.waterAmount}"]`).classList.remove('bg-gray-100');
-                document.querySelector(`.water-btn[data-water="${settings.waterAmount}"]`).classList.add('bg-amber-500', 'text-white');
-                
-                // Update cooling method buttons
-                document.querySelectorAll('.cooling-btn').forEach(btn => {
-                    btn.classList.remove('bg-amber-500', 'text-white');
-                    btn.classList.add('bg-gray-100');
-                });
-                document.querySelector(`.cooling-btn[data-cooling="${settings.coolingMethod}"]`).classList.remove('bg-gray-100');
-                document.querySelector(`.cooling-btn[data-cooling="${settings.coolingMethod}"]`).classList.add('bg-amber-500', 'text-white');
-                
-                // Update egg count
-                document.getElementById('egg-count').value = settings.eggCount;
-                
-                // Update altitude
-                document.getElementById('altitude').value = settings.altitude;
-                
-                // Update doneness slider
-                document.getElementById('doneness-slider').value = settings.donenessLevel;
-                
-                // Update time adjustment
-                document.getElementById('time-adjustment').value = settings.timeAdjustment;
-            }
-            
-            function playNotification() {
-                try {
-                    // Create a beep sound using Web Audio API
-                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    const oscillator = audioContext.createOscillator();
-                    const gainNode = audioContext.createGain();
-                    
-                    oscillator.connect(gainNode);
-                    gainNode.connect(audioContext.destination);
-                    
-                    oscillator.type = 'sine';
-                    oscillator.frequency.value = 800;
-                    gainNode.gain.value = 0.5;
-                    
-                    oscillator.start();
-                    
-                    setTimeout(() => {
-                        oscillator.stop();
-                    }, 500);
-                } catch (e) {
-                    console.log('Audio notification not supported');
-                }
-            }
+                        b.classList<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93db1d2e6177db3e',t:'MTc0Njg5NzY5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
         });
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93daf14eb625714d',t:'MTc0Njg5NTkwMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
