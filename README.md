@@ -30,6 +30,6 @@ Nếu bạn có bất kỳ ý tưởng hay góp ý nào để cải thiện webs
 
 ## Giấy Phép (License)
 
-Dự án này được cấp phép theo Giấy phép MIT - xem tệp [LICENSE.md] để biết thêm chi tiết.
+Dự án này được cấp phép theo GPL 3.0  - xem tệp [LICENSE.md] để biết thêm chi tiết.
 
 ---
